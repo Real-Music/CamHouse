@@ -1,6 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const houseRoutes = require("./api/routes/houses");
+const roomsRoutes = require("./api/routes/rooms");
+const apartmentsRoutes = require("./api/routes/apartments");
+const ordersRoutes = require("./api/routes/orders");
 
 const app = express();
 
@@ -24,11 +28,10 @@ app.use((req, res, next) => {
 });
 
 // Routes goes here
-app.get("/", (req, res) => {
-  res.status(200).json({
-    message: "Welcome to CamHome"
-  });
-});
+app.use("/houses", houseRoutes);
+app.use("/rooms", roomsRoutes);
+app.use("/apartments", apartmentsRoutes);
+app.use("/orders", ordersRoutes);
 
 // 404 Errors
 app.use(function(req, res, next) {
