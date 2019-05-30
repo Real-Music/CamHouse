@@ -1,11 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const houseRoutes = require("./api/routes/houses");
-const roomsRoutes = require("./api/routes/rooms");
-const apartmentsRoutes = require("./api/routes/apartments");
+const cors = require("cors");
+const usersRoutes = require("./api/routes/user");
+const houseRoutes = require("./api/routes/house");
+const roomsRoutes = require("./api/routes/room");
+const apartmentsRoutes = require("./api/routes/apartment");
 const studioRoutes = require("./api/routes/studio");
-const ordersRoutes = require("./api/routes/orders");
+const ordersRoutes = require("./api/routes/order");
 
 const app = express();
 
@@ -29,6 +31,7 @@ app.use((req, res, next) => {
 });
 
 // Routes goes here
+app.use("/users", usersRoutes);
 app.use("/houses", houseRoutes);
 app.use("/rooms", roomsRoutes);
 app.use("/apartments", apartmentsRoutes);

@@ -8,5 +8,10 @@ module.exports = {
       host: process.env.HOST || "localhost",
       dialect: process.env.DIALECT || "postgres"
     }
+  },
+  jwt: {
+    ONE_WEEK: 60 * 60 * 24 * 7,
+    JWT_SECRET:
+      process.env.JWT_SECRET || "fuieyirubvbxcvoyeoprypweoir#2%^%&^&^*uop"
   }
 };

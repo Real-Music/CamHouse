@@ -8,7 +8,11 @@ const sequelize = new Sequelize(
 );
 
 const db = {
-  tanant: sequelize["import"]("./tanant.js")
+  Users: sequelize["import"]("./Users.js"),
+  House: sequelize["import"]("./House.js"),
+  Apartment: sequelize["import"]("./Apartment.js"),
+  Studio: sequelize["import"]("./Studio.js"),
+  singleRooms: sequelize["import"]("./singleRooms.js")
 };
 
 db.sequelize = sequelize;
