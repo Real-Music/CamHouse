@@ -15,6 +15,7 @@ const app = express();
 app.use(morgan("combined"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 
 // Handle Cors Error
 app.use((req, res, next) => {

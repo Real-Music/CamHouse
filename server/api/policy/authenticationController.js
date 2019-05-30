@@ -3,12 +3,12 @@ const Joi = require("joi");
 module.exports = {
   register(req, res, next) {
     const schema = Joi.object().keys({
-      fname: Joi.string()
+      firstname: Joi.string()
         .alphanum()
         .min(3)
         .max(15)
         .required(),
-      lname: Joi.string()
+      lastname: Joi.string()
         .alphanum()
         .min(3)
         .max(15)
@@ -24,12 +24,12 @@ module.exports = {
     Joi.validate(req.body, schema, (error, value) => {
       if (error) {
         switch (error.details[0].context.key) {
-          case "fname":
+          case "firstname":
             res
               .status(400)
               .json({ message: "Please provide a valid first name" });
             break;
-          case "lname":
+          case "lastname":
             res
               .status(400)
               .json({ message: "Please provide a valid last name" });
@@ -63,6 +63,7 @@ module.exports = {
       email: Joi.string()
         .email({ minDomainAtoms: 2 })
         .required(),
+      phone: Joi.string().regex(/^[0-9]{9,9}$/),
       password: Joi.string().regex(/^[a-zA-Z0-9]{8,32}$/)
     });
 
@@ -71,6 +72,11 @@ module.exports = {
         switch (error.details[0].context.key) {
           case "email":
             res.status(400).json({ message: "Please provide a valid email" });
+            break;
+          case "phone":
+            res
+              .status(400)
+              .json({ message: "Phone number must be 9 digit long" });
             break;
           case "password":
             res.status(400).json({ message: "Password must be 8 char long" });
