@@ -100,21 +100,21 @@ module.exports = {
   // Create User
   async register(req, res, next) {
     try {
-      upload(req, res, err => {
-        console.log(uniqueString());
-        console.log(req.file);
-        console.log();
-        console.log(req.body);
-        if (err) {
-          res.status(400).json({ message: err });
-        } else {
-          res.status(200).json({ user: req.file });
-        }
-      });
+      // upload(req, res, err => {
+      //   console.log(uniqueString());
+      //   console.log(req.file);
+      //   console.log();
+      //   console.log(req.body);
+      //   if (err) {
+      //     res.status(400).json({ message: err });
+      //   } else {
+      //     res.status(200).json({ user: req.file });
+      //   }
+      // });
 
-      // const user = await User.create(req.body);
+      const user = await User.create(req.body);
 
-      // res.status(201).json({ message: "User Created", user: user.toJSON() });
+      res.status(201).json({ message: "User Created", user: user.toJSON() });
     } catch (error) {
       res.status(500).json({ message: "Internal Error Creating User" });
     }
@@ -182,30 +182,43 @@ module.exports = {
       }
       // Validating Email of Phone
       const Phoneschema = Joi.object().keys({
-        phone: Joi.string().regex(/^[0-9]{9,9}$/)
+        phone: Joi.string().regex(/^[0-9]{9,9}$/),
+        password: Joi.string().regex(/^[a-zA-Z0-9]{8,32}$/)
       });
       const Emailscheme = Joi.object().keys({
         email: Joi.string()
           .email({ minDomainAtoms: 2 })
-          .required()
+          .required(),
+        password: Joi.string().regex(/^[a-zA-Z0-9]{8,32}$/)
       });
 
       if (req.body.email) {
-        Joi.validate({ email: req.body.email }, Emailscheme, (error, value) => {
-          if (error) {
-            switch (error.details[0].context.key) {
-              case "email":
-                res.status(400).json({
-                  message: "Please provide a valid email"
-                });
-                break;
-              default:
-                res.status(400).json({ message: "Invalid Credentails" });
+        console.log(req.body);
+        console.log("yse");
+        Joi.validate(
+          { email: req.body.email, password: req.body.password },
+          Emailscheme,
+          (error, value) => {
+            if (error) {
+              switch (error.details[0].context.key) {
+                case "email":
+                  res.status(400).json({
+                    message: "Please provide a valid email"
+                  });
+                  break;
+                case "password":
+                  res.status(400).json({
+                    message: "Password must be 8 char long"
+                  });
+                  break;
+                default:
+                  res.status(400).json({ message: "Invalid Credentails" });
+              }
+            } else {
+              access();
             }
-          } else {
-            access();
           }
-        });
+        );
       } else if (req.body.phone) {
         Joi.validate({ phone: req.body.phone }, Phoneschema, (error, value) => {
           if (error) {
@@ -213,6 +226,11 @@ module.exports = {
               case "phone":
                 res.status(400).json({
                   message: "Phone number must be 9 digit long"
+                });
+                break;
+              case "password":
+                res.status(400).json({
+                  message: "Password must be 8 char long"
                 });
                 break;
               default:
