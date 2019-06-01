@@ -36,7 +36,7 @@ app.use("/users", usersRoutes);
 app.use("/houses", houseRoutes);
 app.use("/rooms", roomsRoutes);
 app.use("/apartments", apartmentsRoutes);
-app.use("/studios", studioRoutes);
+app.use("/studio", studioRoutes);
 app.use("/orders", ordersRoutes);
 
 // 404 Errors

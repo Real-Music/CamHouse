@@ -1,29 +1,14 @@
 const express = require("express");
+const studioController = require("../controllers/studioController");
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
-  res.status(200).json({ message: "Get request to /studios" });
-});
+router.get("/", studioController.getStudio);
 
-router.post("/", (req, res, next) => {
-  res.status(201).json({ message: "POST request to /studios" });
-});
+router.post("/:userId", studioController.createStudio);
 
-router.get("/:studioId", (req, res, next) => {
-  const id = req.params.studioId;
-  if (id === "hi") {
-    res.status(200).json({ message: "you discover the special Id", id: id });
-  } else {
-    res.status(200).json({ message: "You passes an ID" });
-  }
-});
+router.get("/:studioId", studioController.singleStudio);
 
-router.patch("/:studioId", (req, res, next) => {
-  res.status(200).json({ message: "Updated studio!" });
-});
+router.patch("/:studioId", studioController.updateStudio);
 
-router.delete("/:studioId", (req, res, next) => {
-  res.status(200).json({ message: "Deleted studio!" });
-});
-
+router.delete("/:studioId", studioController.deleteStudio);
 module.exports = router;
