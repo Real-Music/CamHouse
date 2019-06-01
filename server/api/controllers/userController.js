@@ -3,7 +3,44 @@ const jwt = require("jsonwebtoken");
 const config = require("../config/config");
 const Op = require("sequelize").Op;
 const Joi = require("joi");
-// const Op = Sequelize.Op;/
+const multer = require("multer");
+const uniqueString = require("unique-string");
+
+// set Storage engine for multer
+const storage = multer.diskStorage({
+  destination: "../../public/users/",
+  filename: function(req, file, cb) {
+    cb(null, new Date().toISOString() + file.originalname);
+  }
+});
+
+// Check File Type
+function checkFileType(file, cb) {
+  // allowed Extension
+  const fileTypes = /jpeg|jpg|png|gif/;
+  // Check ex
+  const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+  // check mimetype
+  const mimetype = fileTypes.test(file.mimetype);
+
+  if (extname && mimetype) {
+    return cb(null, true);
+  } else {
+    cb("Error: Images Only");
+  }
+}
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1024 * 1024 * 5 },
+  fileFilter: function(req, file, cb) {
+    checkFileType(file, cb);
+  }
+}).single("imageUrl");
+
+// const upload = multer({
+//   storage: storage
+// }).single("imageUrl");
 
 function jwtSignUser(user) {
   const ONE_WEEK = 60 * 60 * 24 * 7;
@@ -63,10 +100,21 @@ module.exports = {
   // Create User
   async register(req, res, next) {
     try {
-      console.log();
-      const user = await User.create(req.body);
-      console.log(req.body);
-      res.status(201).json({ message: "User Created", user: user.toJSON() });
+      upload(req, res, err => {
+        console.log(uniqueString());
+        console.log(req.file);
+        console.log();
+        console.log(req.body);
+        if (err) {
+          res.status(400).json({ message: err });
+        } else {
+          res.status(200).json({ user: req.file });
+        }
+      });
+
+      // const user = await User.create(req.body);
+
+      // res.status(201).json({ message: "User Created", user: user.toJSON() });
     } catch (error) {
       res.status(500).json({ message: "Internal Error Creating User" });
     }

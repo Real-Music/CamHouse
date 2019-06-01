@@ -9,7 +9,8 @@ router.get("/provider", UserController.getProviders); // All Providers
 router.get("/:userId", UserController.singleUser); // Single User
 
 router.post("/login", UserController.login);
-router.post("/", authenticationController.register, UserController.register); // Create New User
+// router.post("/", authenticationController.register, UserController.register); // Create New User
+router.post("/", UserController.register); // Create New User
 router.patch("/:userId", UserController.updateUser);
 
 router.delete("/:userId", UserController.deleteUser);
