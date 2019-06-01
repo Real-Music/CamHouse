@@ -1,16 +1,15 @@
 module.exports = (sequelize, Datatypes) => {
-  const Studio = sequelize.define(
-    "Studio",
+  const singleRoom = sequelize.define(
+    "singleRoom",
     {
       bathroom_no: {
         type: Datatypes.STRING,
         allowNull: false,
-        defaultValue: 1
+        defaultValue: 0
       },
       kitchen_no: {
         type: Datatypes.STRING,
-        allowNull: false,
-        defaultValue: 1
+        allowNull: true
       },
       dimension: {
         type: Datatypes.STRING,
@@ -35,8 +34,8 @@ module.exports = (sequelize, Datatypes) => {
       freezeTableName: true
     }
   );
-  // Studio.associate = models => {
-  //   Studio.belongsTo(models.User);
+  // singleRoom.associate = models => {
+  //   singleRoom.belongsTo(models.User);
   // };
-  return Studio;
+  return singleRoom;
 };

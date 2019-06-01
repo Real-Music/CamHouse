@@ -57,7 +57,10 @@ module.exports = (sequelize, Datatypes) => {
       hooks: {
         beforeCreate: hashPassword,
         beforeUpdate: hashPassword
-      }
+      },
+      underscored: true,
+      sequelize,
+      freezeTableName: true
     }
   );
   //  Comparing Password
@@ -65,5 +68,22 @@ module.exports = (sequelize, Datatypes) => {
     return bcrypt.compareAsync(password, this.password);
   };
 
+  User.associate = models => {
+    User.hasMany(models.House, {
+      foreignKey: "userId"
+    });
+
+    User.hasMany(models.Apartment, {
+      foreignKey: "userId"
+    });
+
+    User.hasMany(models.singleRoom, {
+      foreignKey: "userId"
+    });
+
+    User.hasMany(models.Studio, {
+      foreignKey: "userId"
+    });
+  };
   return User;
 };

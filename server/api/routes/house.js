@@ -1,29 +1,14 @@
 const express = require("express");
 const router = express.Router();
+const houseController = require("../controllers/houseController");
 
-router.get("/", (req, res, next) => {
-  res.status(200).json({ message: "GET request to /houses" });
-});
+router.get("/", houseController.getHouse); // Get all houses
+router.get("/:houseId", houseController.singleHouse); // Get Single House
 
-router.post("/", (req, res, next) => {
-  res.status(201).json({ message: "POST request to /houses" });
-});
+router.post("/:userId", houseController.createHouse); // Create House
 
-router.get("/:houseId", (req, res, next) => {
-  const id = req.params.houseId;
-  if (id === "special") {
-    res.status(200).json({ message: "you discover the special ID", id: id });
-  } else {
-    res.status(200).json({ message: "You passes an ID" });
-  }
-});
+router.patch("/:houseId", houseController.updateHouse); // Update House
 
-router.patch("/:houseId", (req, res, next) => {
-  res.status(200).json({ message: "Updated house!" });
-});
-
-router.delete("/:houseId", (req, res, next) => {
-  res.status(200).json({ message: "Deleted house!" });
-});
+router.delete("/:houseId", houseController.deleteHouse); // Delete House
 
 module.exports = router;

@@ -1,4 +1,4 @@
-const { Users } = require("../models");
+const { User } = require("../models");
 const jwt = require("jsonwebtoken");
 const config = require("../config/config");
 const Op = require("sequelize").Op;
@@ -16,8 +16,11 @@ module.exports = {
   // Get All User
   async getUsers(req, res, next) {
     try {
-      const users = await Users.findAll({ raw: true });
-      console.log(users);
+      const users = await User.findAll({
+        // raw: true,
+        include: [{ all: true }]
+      });
+      // console.log(users);
       res.status(200).json({ message: "All Users", users: users });
     } catch (error) {
       res.status(500).json({ message: "Internal Error Fetching All Users" });
@@ -26,7 +29,7 @@ module.exports = {
 
   async getProviders(req, res, next) {
     try {
-      const provider = await Users.findAll({
+      const provider = await User.findAll({
         raw: true,
         where: {
           isHouseProvider: true
@@ -40,7 +43,7 @@ module.exports = {
 
   async getTenants(req, res, next) {
     try {
-      const tenants = await Users.findAll({
+      const tenants = await User.findAll({
         raw: true,
         where: { isHouseProvider: false }
       });
@@ -53,7 +56,10 @@ module.exports = {
   async singleUser(req, res, next) {
     try {
       const userId = req.params.userId;
-      const user = await Users.findOne({ where: { id: userId } });
+      const user = await User.findOne({
+        where: { id: userId },
+        include: [{ all: true }]
+      });
       if (!user) return res.status(449).json({ message: "User not found" });
       res.status(200).json({ message: "User", user: user });
     } catch (error) {
@@ -63,7 +69,8 @@ module.exports = {
   // Create User
   async register(req, res, next) {
     try {
-      const user = await Users.create(req.body);
+      console.log();
+      const user = await User.create(req.body);
       console.log(req.body);
       res.status(201).json({ message: "User Created", user: user.toJSON() });
     } catch (error) {
@@ -74,7 +81,7 @@ module.exports = {
   async updateUser(req, res, next) {
     try {
       const userId = req.params.userId;
-      const tobeUpdated = await Users.findOne({
+      const tobeUpdated = await User.findOne({
         raw: true,
         where: { id: userId }
       });
@@ -88,7 +95,7 @@ module.exports = {
   async deleteUser(req, res, next) {
     try {
       const userId = req.params.userId;
-      const tobeDeleted = await Users.findOne({
+      const tobeDeleted = await User.findOne({
         raw: true,
         where: { id: userId }
       });
@@ -104,7 +111,7 @@ module.exports = {
     try {
       const { password } = req.body;
       async function access() {
-        const user = await Users.findOne({
+        const user = await User.findOne({
           where: {
             [Op.or]: [
               { phone: req.body.phone ? req.body.phone : null },
