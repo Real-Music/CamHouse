@@ -16,9 +16,13 @@
 
 <style lang="scss" scope>
 #Nav__bar {
+  position: sticky;
+  top: 0;
+  left: 0;
   width: 100%;
   background: #444;
   padding: 5px;
+  z-index: 9999;
   ul {
     list-style: none;
     display: flex;
