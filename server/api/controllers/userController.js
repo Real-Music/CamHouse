@@ -17,10 +17,9 @@ module.exports = {
   async getUsers(req, res, next) {
     try {
       const users = await User.findAll({
-        // raw: true,
         include: [{ all: true }]
       });
-      // console.log(users);
+
       res.status(200).json({ message: "All Users", users: users });
     } catch (error) {
       res.status(500).json({ message: "Internal Error Fetching All Users" });
@@ -30,10 +29,8 @@ module.exports = {
   async getProviders(req, res, next) {
     try {
       const provider = await User.findAll({
-        raw: true,
-        where: {
-          isHouseProvider: true
-        }
+        include: [{ all: true }],
+        where: { isHouseProvider: true }
       });
       res.status(200).json({ message: "House Providers", provider: provider });
     } catch (error) {
@@ -43,10 +40,7 @@ module.exports = {
 
   async getTenants(req, res, next) {
     try {
-      const tenants = await User.findAll({
-        raw: true,
-        where: { isHouseProvider: false }
-      });
+      const tenants = await User.findAll({ where: { isHouseProvider: false } });
       res.status(200).json({ message: "Tenants", tenants: tenants });
     } catch (error) {
       res.status(500).json({ message: "Internal Error Fetching All Tenants" });
@@ -77,16 +71,18 @@ module.exports = {
       res.status(500).json({ message: "Internal Error Creating User" });
     }
   },
-  // todo work on this too
+
   async updateUser(req, res, next) {
     try {
       const userId = req.params.userId;
-      const tobeUpdated = await User.findOne({
-        raw: true,
+      const user = await User.findOne({ where: { id: userId } });
+      console.log(user);
+      if (!user) return res.status(449).json({ message: "User Not Found" });
+
+      const updatedUser = await user.update(req.body, {
         where: { id: userId }
       });
-      const user = await tobeUpdated.update(req.body);
-      res.status(200).json({ message: "User Updated", user: user });
+      res.status(200).json({ message: "User Updated", user: updatedUser });
     } catch (error) {
       res.status(500).json({ message: "Internal Error Updating User" });
     }
@@ -95,12 +91,11 @@ module.exports = {
   async deleteUser(req, res, next) {
     try {
       const userId = req.params.userId;
-      const tobeDeleted = await User.findOne({
-        raw: true,
-        where: { id: userId }
-      });
+      const user = await User.findOne({ where: { id: userId } });
 
-      tobeDeleted.destroy({ where: { id: tobeDeleted.id } });
+      if (!user) return res.status(449).json({ message: "User Not Found" });
+
+      user.destroy({ where: { id: userId.id } });
       res.status(200).json({ message: "User Deleted" });
     } catch (error) {
       res.status(500).json({ message: "Internal Error Deleting User" });
@@ -112,6 +107,7 @@ module.exports = {
       const { password } = req.body;
       async function access() {
         const user = await User.findOne({
+          include: [{ all: true }],
           where: {
             [Op.or]: [
               { phone: req.body.phone ? req.body.phone : null },

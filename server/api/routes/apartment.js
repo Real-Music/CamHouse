@@ -1,26 +1,14 @@
 const express = require("express");
+const apartmentController = require("../controllers/apartmentController");
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
-  res.status(200).json({ message: "GET request to /apartments" });
-});
+router.get("/", apartmentController.getApartment);
 
-router.post("/", (req, res, next) => {
-  res.status(201).json({ message: "POST request to /apartments" });
-});
+router.post("/:userId", apartmentController.createApartment);
 
-router.get("/:apartmentId", (req, res, next) => {
-  const id = req.params.houseId;
-  if (id === "special") {
-    res.status(200).json({ message: "you discover the special ID", id: id });
-  } else {
-    res.status(200).json({ message: "You passes an ID" });
-  }
-});
+router.get("/:apartmentId", apartmentController.singleApartment);
 
-router.patch("/:apartmentId", (req, res, next) => {
-  res.status(200).json({ message: "Updated apartments!" });
-});
+router.patch("/:apartmentId", apartmentController.updateApartment);
 
 router.delete("/:apartmentId", (req, res, next) => {
   res.status(200).json({ message: "Deleted apartments!" });
