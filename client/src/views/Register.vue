@@ -10,10 +10,13 @@
               to get the contact of the provider, show interest on the house by
               clicking the heart shape available on the house image.
             </p>
-            <a href="./signup.html" title="Sign up as tenant">
+            <!-- <a @click="tenant" title="Sign up as tenant"> -->
+            <router-link @click.native="tenant" to="/register/tenant">
               SignUp
               <i class="fa fa-arrow-circle-right"></i>
-            </a>
+            </router-link>
+
+            <!-- </a> -->
           </article>
         </div>
         <div class="provider">
@@ -24,7 +27,10 @@
               and recieve notifications on your mail or browser concerning
               interest shown on your house and facilitate rentals
             </p>
-            <a href="./ProviderSignup.html" title="Sign up as house provider">SignUp</a>
+            <router-link @click.native="provider" to="/register/provider">
+              SignUp
+              <i class="fa fa-arrow-circle-right"></i>
+            </router-link>
           </article>
         </div>
       </div>
@@ -36,6 +42,14 @@
 export default {
   data() {
     return {};
+  },
+  methods: {
+    tenant() {
+      this.$store.dispatch("setHouseProvider", false);
+    },
+    provider() {
+      this.$store.dispatch("setHouseProvider", true);
+    }
   }
 };
 </script>
@@ -48,6 +62,11 @@ export default {
   --shead: 32px;
   --hColor: rgba(255, 255, 255, 0.904);
 }
+
+* {
+  color: white;
+}
+
 main {
   background-color: rgb(231, 231, 231);
   position: relative;
@@ -94,6 +113,7 @@ article.user_content p {
 }
 
 article.user_content a {
+  cursor: pointer;
   display: block;
   background-color: #1e1c31;
   color: var(--h2);

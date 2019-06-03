@@ -20,6 +20,7 @@ export default {
   padding: 0;
   box-sizing: border-box;
   font-family: "Cabin", sans-serif;
+  outline: none;
 }
 
 #app {
@@ -27,6 +28,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   // text-align: center;
-  color: white;
+  // color: white;
 }
 </style>

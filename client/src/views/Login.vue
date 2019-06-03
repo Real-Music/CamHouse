@@ -64,16 +64,18 @@ export default {
             password: this.password
           });
           console.log(response);
-          this.$store.dispatch("setToken", response.data.token);
-          this.$store.dispatch("setUser", response.data.user);
+          await this.$store.dispatch("setToken", response.data.token);
+          await this.$store.dispatch("setUser", response.data.user);
+          this.$router.push({ name: "dashboard" });
         } else {
           response = await UserApi.login({
             email: this.email,
             password: this.password
           });
           console.log(response);
-          this.$store.dispatch("setToken", response.data.token);
-          this.$store.dispatch("setUser", response.data.user);
+          await this.$store.dispatch("setToken", response.data.token);
+          await this.$store.dispatch("setUser", response.data.user);
+          this.$router.push({ name: "dashboard" });
         }
       } catch (error) {
         console.log(error.response.data.message);
@@ -96,9 +98,6 @@ export default {
   background: red;
 }
 
-* {
-  outline: none;
-}
 :root {
   --text: #fff;
   --border: rgba(218, 165, 32, 0.445);
@@ -192,6 +191,9 @@ div.option p {
   text-align: center;
   margin: 10px auto;
   color: rgba(255, 255, 255, 0.8);
+  a {
+    color: cornflowerblue;
+  }
 }
 
 div.option p a:hover {
@@ -207,6 +209,7 @@ div.option p a:hover {
     padding: 20px 5px;
     color: white;
     font-size: 28px;
+    font-weight: lighter;
   }
 
   section.login form input[type="submit"] {

@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
+import Tenant from "./components/Register User/Tenant.vue";
+import Index from "./views/Index.vue";
 
 Vue.use(Router);
 
@@ -30,6 +32,16 @@ export default new Router({
       name: "register",
       component: () =>
         import(/* webpackChunkName: "about" */ "./views/Register.vue")
+    },
+    {
+      path: "/register/:tenant",
+      name: "tenant",
+      component: Tenant
+    },
+    {
+      path: "/home",
+      name: "dashboard",
+      component: Index
     }
   ]
 });

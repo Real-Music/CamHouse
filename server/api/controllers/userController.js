@@ -100,21 +100,23 @@ module.exports = {
   // Create User
   async register(req, res, next) {
     try {
-      // upload(req, res, err => {
-      //   console.log(uniqueString());
-      //   console.log(req.file);
-      //   console.log();
-      //   console.log(req.body);
-      //   if (err) {
-      //     res.status(400).json({ message: err });
-      //   } else {
-      //     res.status(200).json({ user: req.file });
-      //   }
-      // });
+      const checkUser = await User.findOne({
+        where: {
+          [Op.or]: [{ phone: req.body.phone }, { email: req.body.email }]
+        }
+      });
 
+      console.log(req.body);
+      if (checkUser)
+        return res.status(400).json({ message: "User already exist!" });
       const user = await User.create(req.body);
 
-      res.status(201).json({ message: "User Created", user: user.toJSON() });
+      const userJSON = user.toJSON();
+      res.status(201).json({
+        message: "User Created",
+        user: userJSON,
+        token: jwtSignUser(userJSON)
+      });
     } catch (error) {
       res.status(500).json({ message: "Internal Error Creating User" });
     }

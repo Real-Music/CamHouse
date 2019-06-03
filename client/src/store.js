@@ -8,9 +8,13 @@ export default new Vuex.Store({
   state: {
     token: localStorage.getItem("access_token") || null,
     user: null,
-    isUserLogIn: false
+    isUserLogIn: false,
+    isHouseProvider: false
   },
   mutations: {
+    setHouseProvider(state, value) {
+      state.isHouseProvider = value;
+    },
     setToken(state, token) {
       state.token = token;
       if (token) {
@@ -24,6 +28,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    setHouseProvider({ commit }, state) {
+      commit("setHouseProvider", state);
+    },
     setToken({ commit }, token) {
       localStorage.setItem("access_token", token);
       commit("setToken", token);

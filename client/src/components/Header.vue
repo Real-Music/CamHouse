@@ -5,18 +5,40 @@
         <router-link to="/" exact>Home</router-link>
       </li>
       <li>
+        <router-link to="/login" exact>Login</router-link>
+      </li>
+      <li>
+        <router-link to="/register" exact>Signup</router-link>
+      </li>
+      <li>
         <router-link to="/about" exact>About</router-link>
       </li>
       <li>
-        <router-link to="/login" exact>Login</router-link>
+        <router-link to="/help" exact>Help</router-link>
       </li>
     </ul>
   </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      isLogin: false
+    };
+  },
+  methods: {
+    display() {
+      console.log("hello");
+      this.isLogin = true;
+    }
+  }
+};
+</script>
+
 <style lang="scss" scope>
 #Nav__bar {
-  position: sticky;
+  position: static;
   top: 0;
   left: 0;
   width: 100%;
@@ -33,7 +55,7 @@
         display: block;
         color: white;
         text-decoration: none;
-        padding: 10px 15px;
+        padding: 8px 15px;
       }
       .router-link-active {
         background: #eee;
