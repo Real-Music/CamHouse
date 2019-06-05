@@ -16,7 +16,7 @@
 
       <div class="content">
         <div v-if="activetab ==='1'" class="tabcontent">
-          <form @submit.prevent="createHouse">
+          <form @submit.prevent="createHouse" class="createHouse">
             <div class="form__wrapper">
               <div class="house__des">
                 <div class="title">
@@ -26,30 +26,30 @@
                   <div class="first_row">
                     <div class="form__container">
                       <label for="floor_no">Number of floors</label>
-                      <input type="text" name="floor_no" id="floor_no">
+                      <input type="text" required name="floor_no" id="floor_no">
                     </div>
                     <div class="form__container">
                       <label for="palors_no">Palors</label>
-                      <input type="text" name="palors_no" id="palors_no">
+                      <input type="text" required name="palors_no" id="palors_no">
                     </div>
                     <div class="form__container">
                       <label for="kitchen_no">Kitchens</label>
-                      <input type="text" name="kitchen_no" id="kitchen_no">
+                      <input type="text" required name="kitchen_no" id="kitchen_no">
                     </div>
                   </div>
                   <div class="second_row">
                     <div class="form__container">
                       <label for="rooms_no">Rooms</label>
-                      <input type="text" name="rooms_no" id="rooms_no">
+                      <input type="text" required name="rooms_no" id="rooms_no">
                     </div>
                     <div class="form__container">
                       <label for="bathroom_no">Bathrooms</label>
-                      <input type="text" name="bathroom_no" id="bathroom_no">
+                      <input type="text" required name="bathroom_no" id="bathroom_no">
                     </div>
                     <div class="form__container">
                       <label for="dimension">Dimension</label>
                       <div>
-                        <input type="text" name="dimension" id="dimension">
+                        <input type="text" required name="dimension" id="dimension">
                         <span>Sft</span>
                       </div>
                     </div>
@@ -65,7 +65,7 @@
                     <div class="form__container">
                       <label for="price">Price</label>
                       <div>
-                        <input type="text" name="price" id="price">
+                        <input type="text" required name="price" id="price">
                         <span>CFA</span>
                       </div>
                     </div>
@@ -97,7 +97,7 @@
                   <div class="second_row">
                     <div class="form__container">
                       <label for="description">Description</label>
-                      <textarea name="description" id="description" cols="10" rows="8"></textarea>
+                      <textarea name="description" id="description" cols="10" required rows="8"></textarea>
                     </div>
                   </div>
                 </div>
@@ -114,7 +114,7 @@
                         <img src alt="Images">
                       </div>
                       <label for="description">Upload</label>
-                      <input type="file" name="imageUrl" id="imageUrl" multiple>
+                      <input type="file" required name="imageUrl" id="imageUrl" multiple>
                     </div>
                   </div>
                 </div>
@@ -138,16 +138,38 @@
 </template>
 
 <script>
+import HouseApi from "@/services/HouseApi";
+
 export default {
   props: {
     activetab: String
   },
   data() {
-    return {};
+    return {
+      floor_no: "",
+      rooms_no: "",
+      bathroom_no: "",
+      palors_no: "",
+      kitchen_no: "",
+      dimension: "",
+      location: "",
+      imageUrl: "",
+      description: "",
+      price: "",
+      duration: ""
+    };
   },
   methods: {
     async createHouse() {
-      console.log("hello");
+      try {
+        const form = document.querySelector(".createHouse");
+        const formData = new FormData(form);
+        const slug = this.$store.state.user.slug;
+        let response = await HouseApi.createHouse(slug, formData);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error.response.data);
+      }
     }
   }
 };

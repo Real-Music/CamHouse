@@ -1,4 +1,42 @@
 const { House, User } = require("../models");
+const multer = require("multer");
+const path = require("path");
+
+const pathChecker = /public/i;
+// set Storage engine for multer
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, "public/houses/");
+  },
+  filename: function(req, file, cb) {
+    cb(null, new Date().toISOString() + file.originalname);
+  }
+});
+
+// Check File Type
+function checkFileType(file, cb) {
+  // allowed Extension
+  const fileTypes = /jpeg|jpg|png|gif/;
+  // Check ex
+  const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+  // check mimetype
+  const mimetype = fileTypes.test(file.mimetype);
+
+  if (extname && mimetype) {
+    return cb(null, true);
+  } else {
+    cb("Error: Images Only");
+  }
+}
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1024 * 1024 * 5 },
+  fileFilter: function(req, file, cb) {
+    checkFileType(file, cb);
+  }
+}).any();
+
 module.exports = {
   async getHouse(req, res, next) {
     try {
@@ -10,19 +48,28 @@ module.exports = {
   },
   async createHouse(req, res, next) {
     try {
-      const userId = req.params.userId;
-      const user = User.findOne({ where: { id: userId } });
-      if (!user) {
-        return res.status(500).json({ message: "Bad Request" });
-      }
+      upload(req, res, async err => {
+        if (err) {
+          return res.status(400).json({ message: err });
+        } else {
+          const user = await User.findOne({
+            raw: true,
+            where: { slug: req.params.userId }
+          });
+          const tobeCreated = req.body;
+          tobeCreated["userId"] = user.id;
+          Array.from(req.files).forEach((element, index) => {
+            let path = element.path;
+            tobeCreated[`imageUrl${index + 1}`] = path.replace(pathChecker, "");
+          });
 
-      let tobeCreated = req.body;
-      tobeCreated["userId"] = userId;
-      const house = await House.create(tobeCreated);
-
-      res.status(201).json({ message: "House Created", house: house.toJSON() });
+          const house = await House.create(tobeCreated);
+          // console.log(req.files, req.params, req.body, user);
+          res.status(200).json({ message: "House Created", house: house });
+        }
+      });
     } catch (error) {
-      res.status(500).json({ message: "Internal Error Creating Houses" });
+      console.log(error);
     }
   },
   async singleHouse(req, res, next) {

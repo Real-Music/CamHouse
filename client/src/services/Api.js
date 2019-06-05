@@ -3,7 +3,7 @@ export default () => {
   return axios.create({
     baseURL: `http://localhost:8000/`,
     headers: {
-      Authorization: "Bearer " + localStorage.getItem("access_token")
+      Authorization: `Bearer ${localStorage.getItem("access_token")}`
     }
   });
 };

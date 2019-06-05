@@ -106,10 +106,13 @@ module.exports = {
         }
       });
 
-      console.log(req.body);
       if (checkUser)
         return res.status(400).json({ message: "User already exist!" });
-      const user = await User.create(req.body);
+
+      let tobeCreated = req.body;
+      tobeCreated["slug"] = uniqueString();
+
+      const user = await User.create(tobeCreated);
 
       const userJSON = user.toJSON();
       res.status(201).json({
