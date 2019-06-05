@@ -158,7 +158,8 @@ export default {
         console.log(response.data);
         await this.$store.dispatch("setToken", response.data.token);
         await this.$store.dispatch("setUser", response.data.user);
-        this.$router.push({ name: "index" });
+        await this.$store.dispatch("isUserLogIn", true);
+        this.$router.push({ name: "dashboard" });
       } catch (error) {
         console.log(error.response.data.message);
         this.error = error.response.data.message;
@@ -251,6 +252,7 @@ div.signup {
 }
 
 .form label {
+  color: white;
   margin-bottom: 10px;
   display: inline-block;
   text-align: left;
@@ -313,6 +315,7 @@ div.option p a:hover {
     padding: 30px 0px;
     font-size: 28px;
     font-weight: lighter;
+    color: white;
   }
 
   div.option {

@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+// import { stat } from "fs";
 
 Vue.use(Vuex);
 
@@ -9,7 +10,10 @@ export default new Vuex.Store({
     token: localStorage.getItem("access_token") || null,
     user: null,
     isUserLogIn: false,
-    isHouseProvider: false
+    isHouseProvider: false,
+    showSignUp: true,
+    showLogin: true,
+    showHome: true
   },
   mutations: {
     setHouseProvider(state, value) {
@@ -25,6 +29,18 @@ export default new Vuex.Store({
     },
     setUser(state, user) {
       state.user = user;
+    },
+    isUserLogIn(state, boolean) {
+      state.isUserLogIn = boolean;
+    },
+    showSignUp(state, value) {
+      state.showSignUp = value;
+    },
+    showLogin(state, value) {
+      state.showLogin = value;
+    },
+    showHome(state, value) {
+      state.showHome = value;
     }
   },
   actions: {
@@ -37,6 +53,18 @@ export default new Vuex.Store({
     },
     setUser({ commit }, user) {
       commit("setUser", user);
+    },
+    isUserLogIn({ commit }, boolean) {
+      commit("isUserLogIn", boolean);
+    },
+    showSignUp({ commit }, boolean) {
+      commit("showSignUp", boolean);
+    },
+    showLogin({ commit }, boolean) {
+      commit("showLogin", boolean);
+    },
+    showHome({ commit }, boolean) {
+      commit("showHome", boolean);
     }
   }
 });

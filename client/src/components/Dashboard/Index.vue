@@ -6,58 +6,68 @@
           <input type="search" name id="menuSearch" placeholder="search menu">
           <ul>
             <li>
-              <a href="#">Home</a>
+              <router-link to>Dashboard</router-link>
             </li>
 
             <li class="dropdown">
-              <a href="#" class="dd_link">dropdown 1</a>
-              <!-- 
-                        <ul class="dropdown_content">
-                            <li>
-                                <a href="#">dropdown 1 </a>
-                            </li>
-                            <li>
-                                <a href="#">dropdown 2</a>
-                            </li>
-              </ul>-->
+              <router-link to>New House</router-link>
             </li>
 
             <li class="dropdown">
-              <a href="#" class="dd_link">dropdown 2</a>
+              <router-link to>Logout</router-link>
             </li>
           </ul>
         </nav>
       </aside>
 
-      <div class="body">{{msg}}</div>
+      <div class="body">
+        <div class="body__wrapper">
+          <div class="title">
+            <h1>Dashboard</h1>
+          </div>
+          <app-house activetab="1"></app-house>
+        </div>
+      </div>
     </main>
   </div>
 </template>
 
 <script>
+import House from "./House";
+
 export default {
   name: "dashboard",
+  components: {
+    "app-house": House
+  },
   props: {
     msg: String
+  },
+  data() {
+    return {
+      showHouse: false
+    };
+  },
+  methods: {
+    createHouse() {
+      this.showHouse = true;
+    }
   }
 };
 </script>
 
-<style scoped>
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  outline: none;
-  transition: 0.7s;
+<style lang="scss" scoped>
+.title {
+  display: block;
+  margin-bottom: 20px;
+  h1 {
+    color: #888;
+    border-bottom: 1px solid #888;
+  }
 }
 
-body {
-  position: relative;
-}
-
-#Nav__bar {
-  position: sticky;
+.body__wrapper {
+  padding: 20px;
 }
 
 .logo {
@@ -76,11 +86,12 @@ main {
 }
 
 aside {
-  background-color: rgba(0, 0, 0, 0.2);
-  width: 200px;
+  background-color: #444;
+  width: 220px;
   height: 100%;
-
-  position: relative;
+  top: 50px;
+  position: fixed;
+  left: 0;
 }
 
 #menuSearch {
@@ -95,7 +106,7 @@ aside {
   height: 100%;
   left: 0px;
   right: 200px;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: #444;
 }
 
 .menu ul {
@@ -112,11 +123,11 @@ aside {
 }
 
 .menu ul li a {
+  color: white;
   text-decoration: none;
   display: block;
-  padding: 5px 10px;
+  padding: 10px 10px;
   font-size: 15px;
-  position: relative;
 }
 
 .menu ul li.dropdown a.dd_link::after {
@@ -133,7 +144,7 @@ aside {
 }
 
 div.body {
-  margin-left: 200px;
+  margin-left: 220px;
   position: relative;
 }
 
@@ -169,7 +180,6 @@ div.body {
 }
 
 label {
-  font-family: sans-serif;
   font-size: 14px;
   padding: 10px;
 }

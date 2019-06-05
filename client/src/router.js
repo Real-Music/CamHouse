@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Tenant from "./components/Register User/Tenant.vue";
 import Index from "./views/Index.vue";
+import store from "./store";
 
 Vue.use(Router);
 
@@ -25,7 +26,15 @@ export default new Router({
       path: "/login",
       name: "login",
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/Login.vue")
+        import(/* webpackChunkName: "about" */ "./views/Login.vue"),
+      beforeEnter(to, from, next) {
+        console.log(store.state.isUserLogIn);
+        if (store.state.isUserLogIn) {
+          next("/home");
+        } else {
+          next();
+        }
+      }
     },
     {
       path: "/register",

@@ -1,20 +1,24 @@
 <template>
   <div id="Nav__bar">
+    <div class="logo" @click="homePage">
+      <img alt="CamHouse logo" src="../assets/logo.png" width="40">
+      <span>CamHouse</span>
+    </div>
     <ul>
-      <li>
-        <router-link to="/" exact>Home</router-link>
+      <li v-if="this.$store.state.showHome">
+        <router-link @click.native="reset" to="/" exact>Home</router-link>
       </li>
-      <li>
-        <router-link to="/login" exact>Login</router-link>
+      <li v-if="this.$store.state.showLogin">
+        <router-link @click.native="hideSignUP" to="/login" exact>Login</router-link>
       </li>
-      <li>
+      <li v-if="this.$store.state.showSignUp">
         <router-link to="/register" exact>Signup</router-link>
       </li>
-      <li>
-        <router-link to="/about" exact>About</router-link>
+      <li v-if="this.$store.state.showHome">
+        <router-link @click.native="reset" to="/about" exact>About</router-link>
       </li>
       <li>
-        <router-link to="/help" exact>Help</router-link>
+        <router-link @click.native="reset" to="/help" exact>Help</router-link>
       </li>
     </ul>
   </div>
@@ -24,13 +28,23 @@
 export default {
   data() {
     return {
-      isLogin: false
+      // showLogin: true,
+      // showSignUP: true
     };
   },
   methods: {
-    display() {
-      console.log("hello");
-      this.isLogin = true;
+    reset() {
+      this.$store.dispatch("showSignUp", true);
+      this.$store.dispatch("showLogin", true);
+    },
+    homePage() {
+      this.$store.dispatch("showHome", true);
+      this.$store.dispatch("showSignUp", true);
+      this.$store.dispatch("showLogin", true);
+      this.$router.push({ name: "home" });
+    },
+    hideSignUP() {
+      this.$store.dispatch("showSignUp", false);
     }
   }
 };
@@ -38,13 +52,21 @@ export default {
 
 <style lang="scss" scope>
 #Nav__bar {
-  position: static;
+  position: sticky;
+  display: flex;
+  justify-content: space-between;
+  color: white;
   top: 0;
   left: 0;
   width: 100%;
   background: #444;
   padding: 5px;
   z-index: 9999;
+  div {
+    display: flex;
+    place-items: center;
+    cursor: pointer;
+  }
   ul {
     list-style: none;
     display: flex;

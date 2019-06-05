@@ -58,7 +58,6 @@ export default {
         const phone = /^[0-9]{9,9}$/;
         let response;
         if (phone.test(this.email)) {
-          console.log("hey");
           response = await UserApi.login({
             phone: this.email,
             password: this.password
@@ -66,6 +65,7 @@ export default {
           console.log(response);
           await this.$store.dispatch("setToken", response.data.token);
           await this.$store.dispatch("setUser", response.data.user);
+          await this.$store.dispatch("isUserLogIn", true);
           this.$router.push({ name: "dashboard" });
         } else {
           response = await UserApi.login({
@@ -75,6 +75,8 @@ export default {
           console.log(response);
           await this.$store.dispatch("setToken", response.data.token);
           await this.$store.dispatch("setUser", response.data.user);
+          await this.$store.dispatch("isUserLogIn", true);
+          await this.$store.dispatch("showSignUp", false);
           this.$router.push({ name: "dashboard" });
         }
       } catch (error) {
@@ -82,6 +84,14 @@ export default {
         this.error = error.response.data.message;
       }
     }
+  },
+  beforeCreate() {
+    // if (localStorage.getItem("access_token")) {
+    //   this.$store.dispatch("showSignUp", false);
+    //   this.$store.dispatch("showLogin", false);
+    //   this.$store.dispatch("showHome", false);
+    //   this.$router.push({ name: "dashboard" });
+    // }
   }
 };
 </script>
@@ -102,10 +112,6 @@ export default {
   --text: #fff;
   --border: rgba(218, 165, 32, 0.445);
   --hover: rgba(30, 28, 49, 0.9);
-}
-
-#Nav__bar {
-  position: fixed;
 }
 
 #login {
