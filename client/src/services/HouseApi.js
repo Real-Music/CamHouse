@@ -7,5 +7,8 @@ export default {
         "Content-Type": "multipart/form-data"
       }
     });
+  },
+  getAllHouse(slug) {
+    return Api().get(`users/${slug}`);
   }
 };

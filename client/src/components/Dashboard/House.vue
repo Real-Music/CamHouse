@@ -1,139 +1,234 @@
 <template>
   <div id="house">
-    <div id="tabs" class="container">
-      <div class="tabs">
-        <a v-on:click="activetab='1'" v-bind:class="[ activetab === '1' ? 'active' : '' ]">New House</a>
-        <a
-          v-on:click="activetab='2'"
-          v-bind:class="[ activetab === '2' ? 'active' : '' ]"
-        >New Apartment</a>
-        <a
-          v-on:click="activetab='3'"
-          v-bind:class="[ activetab === '3' ? 'active' : '' ]"
-        >New Studio</a>
-        <a v-on:click="activetab='4'" v-bind:class="[ activetab === '4' ? 'active' : '' ]">New Room</a>
-      </div>
+    <dashboard title="New House">
+      <div>
+        <div id="tabs" class="container">
+          <div class="tabs">
+            <a
+              v-on:click="activetab='1'"
+              v-bind:class="[ activetab === '1' ? 'active' : '' ]"
+            >New House</a>
+            <a
+              v-on:click="activetab='2'"
+              v-bind:class="[ activetab === '2' ? 'active' : '' ]"
+            >New Apartment</a>
+            <a
+              v-on:click="activetab='3'"
+              v-bind:class="[ activetab === '3' ? 'active' : '' ]"
+            >New Studio</a>
+            <a
+              v-on:click="activetab='4'"
+              v-bind:class="[ activetab === '4' ? 'active' : '' ]"
+            >New Room</a>
+          </div>
 
-      <div class="content">
-        <div v-if="activetab ==='1'" class="tabcontent">
-          <form @submit.prevent="createHouse" class="createHouse">
-            <div class="form__wrapper">
-              <div class="house__des">
-                <div class="title">
-                  <p>House Description</p>
-                </div>
-                <div class="input__form">
-                  <div class="first_row">
-                    <div class="form__container">
-                      <label for="floor_no">Number of floors</label>
-                      <input type="text" required name="floor_no" id="floor_no">
-                    </div>
-                    <div class="form__container">
-                      <label for="palors_no">Palors</label>
-                      <input type="text" required name="palors_no" id="palors_no">
-                    </div>
-                    <div class="form__container">
-                      <label for="kitchen_no">Kitchens</label>
-                      <input type="text" required name="kitchen_no" id="kitchen_no">
-                    </div>
-                  </div>
-                  <div class="second_row">
-                    <div class="form__container">
-                      <label for="rooms_no">Rooms</label>
-                      <input type="text" required name="rooms_no" id="rooms_no">
-                    </div>
-                    <div class="form__container">
-                      <label for="bathroom_no">Bathrooms</label>
-                      <input type="text" required name="bathroom_no" id="bathroom_no">
-                    </div>
-                    <div class="form__container">
-                      <label for="dimension">Dimension</label>
-                      <div>
-                        <input type="text" required name="dimension" id="dimension">
-                        <span>Sft</span>
+          <div class="content">
+            <div v-if="activetab ==='1'" class="tabcontent">
+              <form @submit.prevent="createHouse" class="createHouse">
+                <div class="form__wrapper">
+                  <div class="house__wrapper">
+                    <div class="house__des">
+                      <div class="title">
+                        <p>House Description</p>
+                      </div>
+                      <div class="input__form">
+                        <div class="first_row">
+                          <div class="form__container">
+                            <label for="floor_no">Number of floors</label>
+                            <input type="text" required name="floor_no" id="floor_no">
+                          </div>
+                          <div class="form__container">
+                            <label for="palors_no">Palors</label>
+                            <input type="text" required name="palors_no" id="palors_no">
+                          </div>
+                          <div class="form__container">
+                            <label for="kitchen_no">Kitchens</label>
+                            <input type="text" required name="kitchen_no" id="kitchen_no">
+                          </div>
+                        </div>
+                        <div class="second_row">
+                          <div class="form__container">
+                            <label for="rooms_no">Rooms</label>
+                            <input type="text" required name="rooms_no" id="rooms_no">
+                          </div>
+                          <div class="form__container">
+                            <label for="bathroom_no">Bathrooms</label>
+                            <input type="text" required name="bathroom_no" id="bathroom_no">
+                          </div>
+                          <div class="form__container">
+                            <label for="dimension">Dimension</label>
+                            <div>
+                              <input type="text" required name="dimension" id="dimension">
+                              <span>Sft</span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="price">
-                <div class="title">
-                  <p>Price & Location</p>
-                </div>
-                <div class="input__form">
-                  <div class="first_row">
-                    <div class="form__container">
-                      <label for="price">Price</label>
-                      <div>
-                        <input type="text" required name="price" id="price">
-                        <span>CFA</span>
+                    <div class="price">
+                      <div class="title">
+                        <p>Price & Location</p>
+                      </div>
+                      <div class="input__form">
+                        <div class="first_row">
+                          <div class="form__container">
+                            <label for="price">Price</label>
+                            <div>
+                              <input type="text" required name="price" id="price">
+                              <span>CFA</span>
+                            </div>
+                          </div>
+                          <div class="form__container">
+                            <label for="duration">Duration</label>
+                            <select name="duration" id="duration">
+                              <option value="Per Day">per day</option>
+                              <option value="Per Night">per night</option>
+                              <option value="Per Week">per week</option>
+                              <option value="Per Month">per month</option>
+                              <option value="Per Year">per year</option>
+                            </select>
+                          </div>
+                          <div class="form__container">
+                            <label for="location">Location</label>
+                            <select name="location" id="location">
+                              <option value="Bokwoango">Bokwoango</option>
+                              <option value="Molyko">Molyko</option>
+                              <option value="Milingo">Milingo</option>
+                              <option value="Mayor's Street">Mayor's Street</option>
+                              <option value="Chief Street">Chief Street</option>
+                              <option value="UB South">UB South</option>
+                              <option value="UB Junction">UB Junction</option>
+                              <option value="Mile 17">Mile 17</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="second_row">
+                          <div class="form__container">
+                            <label for="description">Description</label>
+                            <textarea
+                              name="description"
+                              id="description"
+                              cols="10"
+                              required
+                              rows="5"
+                            ></textarea>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div class="form__container">
-                      <label for="duration">Duration</label>
-                      <select name="duration" id="duration">
-                        <option value="day">per day</option>
-                        <option value="day">per night</option>
-                        <option value="day">per week</option>
-                        <option value="day">per month</option>
-                        <option value="day">per year</option>
-                      </select>
-                    </div>
-                    <div class="form__container">
-                      <label for="location">Location</label>
-                      <select name="location" id="location">
-                        <option value>Location</option>
-                        <option value="b">Bokwoango</option>
-                        <option value>Molyko</option>
-                        <option value>Milingo</option>
-                        <option value>Mayor's Street</option>
-                        <option value>Chief Street</option>
-                        <option value>UB South</option>
-                        <option value>UB Junction</option>
-                        <option value>Mile 17</option>
-                      </select>
+                    <div class="help__text">
+                      <h1>Help Text For House</h1>
+                      <br>
+                      <br>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt autem error
+                        <br>
+                        <br>quos perferendis distinctio ullam rerum, beatae, minima sunt voluptatem rem quia, assumenda natus amet explicabo. Saepe iusto velit laboriosam.
+                      </p>
                     </div>
                   </div>
-                  <div class="second_row">
-                    <div class="form__container">
-                      <label for="description">Description</label>
-                      <textarea name="description" id="description" cols="10" required rows="8"></textarea>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
-              <div class="image">
-                <div class="title">
-                  <p>Image Upload</p>
-                </div>
-                <div class="input__form">
-                  <div class="first_row">
-                    <div class="form__container">
-                      <div class="preview">
-                        <img src alt="Images">
+                  <div class="images__upload">
+                    <div class="image">
+                      <div class="title">
+                        <p>Image Upload</p>
                       </div>
-                      <label for="description">Upload</label>
-                      <input type="file" required name="imageUrl" id="imageUrl" multiple>
+                      <div class="input__form">
+                        <div class="first_row">
+                          <div class="form__container">
+                            <div class="preview">
+                              <img :src="previewUrl" v-if="previewUrl">
+                              <img
+                                src="https://media.istockphoto.com/photos/render-sketch-of-modern-cozy-house-in-chalet-style-picture-id858388106?k=6&m=858388106&s=612x612&w=0&h=w3o9PaWvA7v2-OTidMfa34QsRq3mfLGvqYRSs3dzdls="
+                                v-else
+                              >
+                              <!-- <p >No image...</p> -->
+                            </div>
+                            <label for="description">Upload</label>
+                            <input
+                              type="file"
+                              required
+                              name="imageUrl"
+                              @change="onFileChange"
+                              accept="image/*"
+                              id="imageUrl"
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="image">
+                      <div class="title">
+                        <p>Image Upload</p>
+                      </div>
+                      <div class="input__form">
+                        <div class="first_row">
+                          <div class="form__container">
+                            <div class="preview">
+                              <img :src="previewUrl1" v-if="previewUrl1">
+                              <img
+                                src="https://media.istockphoto.com/photos/render-sketch-of-modern-cozy-house-in-chalet-style-picture-id858388106?k=6&m=858388106&s=612x612&w=0&h=w3o9PaWvA7v2-OTidMfa34QsRq3mfLGvqYRSs3dzdls="
+                                v-else
+                              >
+                            </div>
+                            <label for="description">Upload</label>
+                            <input
+                              type="file"
+                              required
+                              name="imageUrl"
+                              @change="onFileChange1"
+                              accept="image/*"
+                              id="imageUrl"
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="image">
+                      <div class="title">
+                        <p>Image Upload</p>
+                      </div>
+                      <div class="input__form">
+                        <div class="first_row">
+                          <div class="form__container">
+                            <div class="preview">
+                              <img :src="previewUrl2" v-if="previewUrl2">
+                              <img
+                                src="https://media.istockphoto.com/photos/render-sketch-of-modern-cozy-house-in-chalet-style-picture-id858388106?k=6&m=858388106&s=612x612&w=0&h=w3o9PaWvA7v2-OTidMfa34QsRq3mfLGvqYRSs3dzdls="
+                                v-else
+                              >
+                            </div>
+                            <label for="description">Upload</label>
+                            <input
+                              type="file"
+                              required
+                              name="imageUrl"
+                              @change="onFileChange2"
+                              accept="image/*"
+                              id="imageUrl"
+                            >
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+                <input type="submit" value="Create">
+              </form>
             </div>
-            <input type="submit" value="Create">
-          </form>
+          </div>
+        </div>
+        <div v-if="activetab === '2'" class="tabcontent">
+          <h1>Two</h1>
+        </div>
+        <div v-if="activetab === '3'" class="tabcontent">
+          <h1>Three</h1>
+        </div>
+        <div v-if="activetab === '4'" class="tabcontent">
+          <h1>four</h1>
         </div>
       </div>
-    </div>
-    <div v-if="activetab ==='2'" class="tabcontent">
-      <h1>Two</h1>
-    </div>
-    <div v-if="activetab ==='3'" class="tabcontent">
-      <h1>Three</h1>
-    </div>
-    <div v-if="activetab ==='4'" class="tabcontent">
-      <h1>four</h1>
-    </div>
+    </dashboard>
   </div>
 </template>
 
@@ -141,22 +236,17 @@
 import HouseApi from "@/services/HouseApi";
 
 export default {
-  props: {
-    activetab: String
-  },
+  name: "createHouse",
+  // props: {
+  //   activetab: String
+  // },
   data() {
     return {
-      floor_no: "",
-      rooms_no: "",
-      bathroom_no: "",
-      palors_no: "",
-      kitchen_no: "",
-      dimension: "",
-      location: "",
-      imageUrl: "",
-      description: "",
-      price: "",
-      duration: ""
+      activetab: "1",
+      previewUrl: "",
+      previewUrl1: "",
+      previewUrl2: "",
+      currentRoute: window.location.pathname
     };
   },
   methods: {
@@ -164,12 +254,70 @@ export default {
       try {
         const form = document.querySelector(".createHouse");
         const formData = new FormData(form);
-        const slug = this.$store.state.user.slug;
+        const slug = this.$cookies.get("user").slug;
+        // this.$cookies.get("user").token;
         let response = await HouseApi.createHouse(slug, formData);
+        this.$store.dispatch("setHouse", response.data.house);
+
+        this.$router.push({
+          name: "house",
+          params: { userId: this.$cookies.get("user").slug }
+        });
+        // this.$router.push({name: "viewHouse",params: {userId: this.$cookies.get("user").slug,houseId: response.data.slug}});
+        // this.$router.push({
+        //   path: this.currentRoute + "/" + response.data.house.slug
+        // });
+
         console.log(response.data);
       } catch (error) {
+        console.log(error);
         console.log(error.response.data);
       }
+    },
+    onFileChange: function(event) {
+      const file = event.target.files[0];
+      if (!file) {
+        return false;
+      }
+      if (!file.type.match("image.*")) {
+        return false;
+      }
+      const reader = new FileReader();
+      const that = this;
+      reader.onload = function(e) {
+        that.previewUrl = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    onFileChange1: function(event) {
+      const file = event.target.files[0];
+      if (!file) {
+        return false;
+      }
+      if (!file.type.match("image.*")) {
+        return false;
+      }
+      const reader = new FileReader();
+      const that = this;
+      reader.onload = function(e) {
+        that.previewUrl1 = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    onFileChange2: function(event) {
+      const file = event.target.files[0];
+      if (!file) {
+        return false;
+      }
+      if (!file.type.match("image.*")) {
+        return false;
+      }
+      const reader = new FileReader();
+      const that = this;
+      reader.onload = function(e) {
+        that.previewUrl2 = e.target.result;
+      };
+      reader.readAsDataURL(file);
     }
   }
 };
@@ -256,8 +404,24 @@ form {
 
 .form__wrapper {
   display: grid;
-  grid-template-columns: auto auto 1fr;
-  column-gap: 50px;
+  grid-template-rows: 1fr auto;
+  row-gap: 50px;
+  .house__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 0.5fr;
+    column-gap: 50px;
+    .help__text {
+      p {
+        text-align: justify;
+        line-height: 1.4;
+      }
+    }
+  }
+  .images__upload {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 50px;
+  }
   .house__des,
   .price,
   .image {
@@ -265,7 +429,7 @@ form {
     grid-template-rows: auto 1fr;
     row-gap: 15px;
     height: 100%;
-    width: fit-content;
+    width: 100%;
     .title {
       p {
         background-color: #444;
@@ -296,9 +460,14 @@ form {
             margin-bottom: 3px;
           }
           .preview {
-            height: 200px;
+            // height: 200px;
             width: 100%;
-            background: #444;
+            border: 1px solid;
+            img {
+              height: 200px;
+              width: 100%;
+              object-fit: contain;
+            }
           }
           textarea {
             width: 100%;
@@ -335,4 +504,3 @@ form {
   }
 }
 </style>
-

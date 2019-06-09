@@ -18,7 +18,6 @@
                 <div>
                   <input
                     v-model="firstname"
-                    @change="checkName"
                     type="text"
                     name="fname"
                     id="fname"
@@ -165,14 +164,7 @@ export default {
         this.error = error.response.data.message;
       }
     },
-    checkName() {
-      const firstname = /^[a-zA-Z]{3,15}$/;
-      if (!firstname.test(this.firstname)) {
-        this.firstnameError = "Only Text are allow";
-      }
-    },
     setError() {
-      console.log("error");
       this.error = null;
     }
   },
@@ -185,6 +177,10 @@ export default {
       },
       deep: true
     }
+  },
+  beforeCreate() {
+    this.$store.dispatch("showLogin", false);
+    this.$store.dispatch("showSignUp", true);
   }
 };
 </script>

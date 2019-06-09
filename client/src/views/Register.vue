@@ -45,13 +45,9 @@ export default {
   },
   methods: {
     tenant() {
-      this.$store.dispatch("showSignUp", true);
-      this.$store.dispatch("showLogin", false);
       this.$store.dispatch("setHouseProvider", false);
     },
     provider() {
-      this.$store.dispatch("showSignUp", true);
-      this.$store.dispatch("showLogin", false);
       this.$store.dispatch("setHouseProvider", true);
     }
   }

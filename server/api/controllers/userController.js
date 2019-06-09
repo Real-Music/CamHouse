@@ -88,7 +88,7 @@ module.exports = {
     try {
       const userId = req.params.userId;
       const user = await User.findOne({
-        where: { id: userId },
+        where: { slug: userId },
         include: [{ all: true }]
       });
       if (!user) return res.status(449).json({ message: "User not found" });
@@ -129,7 +129,6 @@ module.exports = {
     try {
       const userId = req.params.userId;
       const user = await User.findOne({ where: { id: userId } });
-      console.log(user);
       if (!user) return res.status(449).json({ message: "User Not Found" });
 
       const updatedUser = await user.update(req.body, {
@@ -198,8 +197,6 @@ module.exports = {
       });
 
       if (req.body.email) {
-        console.log(req.body);
-        console.log("yse");
         Joi.validate(
           { email: req.body.email, password: req.body.password },
           Emailscheme,

@@ -1,34 +1,32 @@
 import Vue from "vue";
 import Vuex from "vuex";
-// import { stat } from "fs";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
+Vue.use(createPersistedState);
 
 export default new Vuex.Store({
   strict: true,
   state: {
-    token: localStorage.getItem("access_token") || null,
-    user: null,
     isUserLogIn: false,
     isHouseProvider: false,
+    showDashboard: false,
     showSignUp: true,
     showLogin: true,
-    showHome: true
+    showHome: true,
+    user: null,
+    house: null
   },
+  plugins: [createPersistedState()],
   mutations: {
+    setHouse(state, value) {
+      state.house = value;
+    },
+    setUser(state, value) {
+      state.user = value;
+    },
     setHouseProvider(state, value) {
       state.isHouseProvider = value;
-    },
-    setToken(state, token) {
-      state.token = token;
-      if (token) {
-        state.isUserLogIn = true;
-      } else {
-        state.isUserLogIn = false;
-      }
-    },
-    setUser(state, user) {
-      state.user = user;
     },
     isUserLogIn(state, boolean) {
       state.isUserLogIn = boolean;
@@ -41,18 +39,20 @@ export default new Vuex.Store({
     },
     showHome(state, value) {
       state.showHome = value;
+    },
+    showDashboard(state, value) {
+      state.showDashboard = value;
     }
   },
   actions: {
-    setHouseProvider({ commit }, state) {
-      commit("setHouseProvider", state);
-    },
-    setToken({ commit }, token) {
-      localStorage.setItem("access_token", token);
-      commit("setToken", token);
+    setHouse({ commit }, house) {
+      commit("setHouse", house);
     },
     setUser({ commit }, user) {
       commit("setUser", user);
+    },
+    setHouseProvider({ commit }, state) {
+      commit("setHouseProvider", state);
     },
     isUserLogIn({ commit }, boolean) {
       commit("isUserLogIn", boolean);
@@ -65,6 +65,9 @@ export default new Vuex.Store({
     },
     showHome({ commit }, boolean) {
       commit("showHome", boolean);
+    },
+    showDashboard({ commit }, boolean) {
+      commit("showDashboard", boolean);
     }
   }
 });

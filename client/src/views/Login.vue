@@ -62,36 +62,79 @@ export default {
             phone: this.email,
             password: this.password
           });
+          // console.log(response);
+          const user = {
+            slug: response.data.user.slug,
+            token: response.data.token
+          };
+
+          let key = ["id", "password", "token", "slug"];
+          delete response.data.user[key[0]];
+          delete response.data.user[key[1]];
+          delete response.data[key[2]];
+          delete response.data.user[key[3]];
+
           console.log(response);
-          await this.$store.dispatch("setToken", response.data.token);
-          await this.$store.dispatch("setUser", response.data.user);
+          console.log(response.data.user.Houses);
+
+          await this.$cookies.set("user", user);
           await this.$store.dispatch("isUserLogIn", true);
-          this.$router.push({ name: "dashboard" });
+          await this.$store.dispatch("setUser", response.data.user);
+          //  console.log(this.$cookies.get("user").token);
+          this.$router.push({
+            name: "dashboard",
+            params: { userId: this.$cookies.get("user").slug }
+          });
         } else {
           response = await UserApi.login({
             email: this.email,
             password: this.password
           });
-          console.log(response);
-          await this.$store.dispatch("setToken", response.data.token);
-          await this.$store.dispatch("setUser", response.data.user);
+          // console.log(response);
+          const user = {
+            slug: response.data.user.slug,
+            token: response.data.token
+          };
+          // filtering Response
+          let key = ["id", "password", "token", "slug"];
+          delete response.data.user[key[0]];
+          delete response.data.user[key[1]];
+          delete response.data[key[2]];
+          delete response.data.user[key[3]];
+
+          console.log(response.data.user.Houses);
+
+          await this.$cookies.set("user", user);
           await this.$store.dispatch("isUserLogIn", true);
-          await this.$store.dispatch("showSignUp", false);
-          this.$router.push({ name: "dashboard" });
+          await this.$store.dispatch("setUser", response.data.user);
+
+          // console.log(this.$cookies.get("user").token);
+          this.$router.push({
+            name: "dashboard",
+            params: { userId: this.$cookies.get("user").slug }
+          });
         }
       } catch (error) {
         console.log(error.response.data.message);
         this.error = error.response.data.message;
       }
+    },
+    setError() {
+      this.error = null;
+    }
+  },
+  watch: {
+    error: {
+      handler: function(val, oldVal) {
+        setTimeout(() => {
+          this.setError();
+        }, 3000);
+      },
+      deep: true
     }
   },
   beforeCreate() {
-    // if (localStorage.getItem("access_token")) {
-    //   this.$store.dispatch("showSignUp", false);
-    //   this.$store.dispatch("showLogin", false);
-    //   this.$store.dispatch("showHome", false);
-    //   this.$router.push({ name: "dashboard" });
-    // }
+    this.$store.dispatch("showSignUp", false);
   }
 };
 </script>

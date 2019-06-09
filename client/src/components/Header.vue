@@ -6,19 +6,22 @@
     </div>
     <ul>
       <li v-if="this.$store.state.showHome">
-        <router-link @click.native="reset" to="/" exact>Home</router-link>
+        <router-link to="/" exact>Home</router-link>
+      </li>
+      <li v-if="this.$store.state.showDashboard">
+        <router-link :to="slug" exact>Dashboard</router-link>
       </li>
       <li v-if="this.$store.state.showLogin">
-        <router-link @click.native="hideSignUP" to="/login" exact>Login</router-link>
+        <router-link to="/login" exact>Login</router-link>
       </li>
       <li v-if="this.$store.state.showSignUp">
         <router-link to="/register" exact>Signup</router-link>
       </li>
       <li v-if="this.$store.state.showHome">
-        <router-link @click.native="reset" to="/about" exact>About</router-link>
+        <router-link to="/about" exact>About</router-link>
       </li>
       <li>
-        <router-link @click.native="reset" to="/help" exact>Help</router-link>
+        <router-link to="/help" exact>Help</router-link>
       </li>
     </ul>
   </div>
@@ -28,23 +31,21 @@
 export default {
   data() {
     return {
-      // showLogin: true,
+      slug:
+        "/home/" +
+        (this.$cookies.get("user") ? this.$cookies.get("user").slug : "")
       // showSignUP: true
     };
   },
   methods: {
-    reset() {
-      this.$store.dispatch("showSignUp", true);
-      this.$store.dispatch("showLogin", true);
+    dashboard() {
+      this.$router.push({
+        name: "dashboard",
+        params: { userId: this.$cookies.get("user").slug }
+      });
     },
     homePage() {
-      this.$store.dispatch("showHome", true);
-      this.$store.dispatch("showSignUp", true);
-      this.$store.dispatch("showLogin", true);
       this.$router.push({ name: "home" });
-    },
-    hideSignUP() {
-      this.$store.dispatch("showSignUp", false);
     }
   }
 };
@@ -55,6 +56,7 @@ export default {
   position: sticky;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: white;
   top: 0;
   left: 0;

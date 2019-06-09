@@ -6,15 +6,19 @@
           <input type="search" name id="menuSearch" placeholder="search menu">
           <ul>
             <li>
-              <router-link to>Dashboard</router-link>
+              <router-link to @click.native="routing('')">Dashboard</router-link>
             </li>
 
             <li class="dropdown">
-              <router-link to>New House</router-link>
+              <router-link to @click.native="routing('/new_house')">New House</router-link>
             </li>
 
             <li class="dropdown">
-              <router-link to>Logout</router-link>
+              <router-link to @click.native="routing('/house')">View Assets</router-link>
+            </li>
+
+            <li class="dropdown">
+              <router-link to @click.native="logout">Logout</router-link>
             </li>
           </ul>
         </nav>
@@ -23,9 +27,14 @@
       <div class="body">
         <div class="body__wrapper">
           <div class="title">
-            <h1>Dashboard</h1>
+            <h1 v-if="title">{{title}}</h1>
+            <h1 v-else>Dashboard</h1>
           </div>
-          <app-house activetab="1"></app-house>
+          <div>
+            <slot></slot>
+          </div>
+          <!-- <app-house activetab="1"></app-house> -->
+          <!-- <house-preview></house-preview> -->
         </div>
       </div>
     </main>
@@ -34,14 +43,17 @@
 
 <script>
 import House from "./House";
+import HousePreview from "./House__Preview";
 
 export default {
   name: "dashboard",
   components: {
-    "app-house": House
+    "app-house": House,
+    "house-preview": HousePreview
   },
   props: {
-    msg: String
+    msg: String,
+    title: String
   },
   data() {
     return {
@@ -49,6 +61,16 @@ export default {
     };
   },
   methods: {
+    async logout() {
+      await this.$store.dispatch("isUserLogIn", false);
+      await this.$cookies.remove("user");
+      this.$router.push({ name: "home" });
+    },
+    routing(path) {
+      this.$router.push({
+        path: "/home/" + this.$cookies.get("user").slug + path
+      });
+    },
     createHouse() {
       this.showHouse = true;
     }

@@ -1,6 +1,7 @@
 const { House, User } = require("../models");
 const multer = require("multer");
 const path = require("path");
+const uniqueString = require("unique-string");
 
 const pathChecker = /public/i;
 // set Storage engine for multer
@@ -43,7 +44,7 @@ module.exports = {
       const houses = await House.findAll({ raw: true });
       res.status(200).json({ message: "All House", houses: houses });
     } catch (error) {
-      res.status(500).json({ message: "Internal Error Fetching All Houses" });
+      res.status(500).json({ message: "Internal Error Single House" });
     }
   },
   async createHouse(req, res, next) {
@@ -58,18 +59,19 @@ module.exports = {
           });
           const tobeCreated = req.body;
           tobeCreated["userId"] = user.id;
+          tobeCreated["slug"] = uniqueString();
+
           Array.from(req.files).forEach((element, index) => {
             let path = element.path;
             tobeCreated[`imageUrl${index + 1}`] = path.replace(pathChecker, "");
           });
 
           const house = await House.create(tobeCreated);
-          // console.log(req.files, req.params, req.body, user);
           res.status(200).json({ message: "House Created", house: house });
         }
       });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: "F" });
     }
   },
   async singleHouse(req, res, next) {
