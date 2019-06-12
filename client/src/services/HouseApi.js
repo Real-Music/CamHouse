@@ -9,6 +9,12 @@ export default {
     });
   },
   getAllHouse(slug) {
-    return Api().get(`users/${slug}`);
+    return Api().get(`houses/user/${slug}`);
+  },
+  updateHouse(slug, data) {
+    return Api().patch(`/houses/${slug}`, data);
+  },
+  deleteHouse(slug) {
+    return Api().delete(`/houses/${slug}`);
   }
 };

@@ -67,6 +67,7 @@ export default {
             slug: response.data.user.slug,
             token: response.data.token
           };
+          console.log(user);
 
           let key = ["id", "password", "token", "slug"];
           delete response.data.user[key[0]];
@@ -90,11 +91,14 @@ export default {
             email: this.email,
             password: this.password
           });
-          // console.log(response);
-          const user = {
+
+          let user = {
             slug: response.data.user.slug,
             token: response.data.token
           };
+
+          this.$cookies.set("user", user);
+
           // filtering Response
           let key = ["id", "password", "token", "slug"];
           delete response.data.user[key[0]];
@@ -102,13 +106,10 @@ export default {
           delete response.data[key[2]];
           delete response.data.user[key[3]];
 
-          console.log(response.data.user.Houses);
+          this.$store.dispatch("isUserLogIn", true);
+          this.$store.dispatch("setUser", response.data.user);
 
-          await this.$cookies.set("user", user);
-          await this.$store.dispatch("isUserLogIn", true);
-          await this.$store.dispatch("setUser", response.data.user);
-
-          // console.log(this.$cookies.get("user").token);
+          // console.log(this.$cookies.get("user"));
           this.$router.push({
             name: "dashboard",
             params: { userId: this.$cookies.get("user").slug }

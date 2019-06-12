@@ -12,4 +12,6 @@ router.patch("/:houseId", houseController.updateHouse); // Update House
 
 router.delete("/:houseId", houseController.deleteHouse); // Delete House
 
+router.get("/user/:userId", houseController.userHouse);
+
 module.exports = router;

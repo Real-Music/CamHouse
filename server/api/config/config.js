@@ -11,7 +11,6 @@ module.exports = {
   },
   jwt: {
     ONE_WEEK: 60 * 60 * 24 * 7,
-    JWT_SECRET:
-      process.env.JWT_SECRET || "fuieyirubvbxcvoyeoprypweoir#2%^%&^&^*uop"
+    JWT_SECRET: process.env.JWT_SECRET || "camHouse"
   }
 };

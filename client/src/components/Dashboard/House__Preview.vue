@@ -1,6 +1,229 @@
 <template>
   <div id="House__Preview">
     <dashboard title="House">
+      <div class="black__box" v-show="blackBox">
+        <div class="content">
+          <div class="tabcontent">
+            <form @submit.prevent class="updateHouse">
+              <div class="form__wrapper">
+                <div class="house__wrapper">
+                  <div class="house__des">
+                    <div class="title">
+                      <p>House Description</p>
+                    </div>
+                    <div class="input__form">
+                      <div class="first_row">
+                        <div class="form__container">
+                          <label for="floor_no">Number of floors</label>
+                          <input
+                            type="text"
+                            :value="houses[active].floor_no"
+                            name="floor_no"
+                            id="floor_no"
+                          >
+                        </div>
+                        <div class="form__container">
+                          <label for="palors_no">Palors</label>
+                          <input
+                            type="text"
+                            :value="houses[active].palors_no"
+                            name="palors_no"
+                            id="palors_no"
+                          >
+                        </div>
+                        <div class="form__container">
+                          <label for="kitchen_no">Kitchens</label>
+                          <input
+                            type="text"
+                            :value="houses[active].kitchen_no"
+                            name="kitchen_no"
+                            id="kitchen_no"
+                          >
+                        </div>
+                      </div>
+                      <div class="second_row">
+                        <div class="form__container">
+                          <label for="rooms_no">Rooms</label>
+                          <input
+                            type="text"
+                            :value="houses[active].rooms_no"
+                            name="rooms_no"
+                            id="rooms_no"
+                          >
+                        </div>
+                        <div class="form__container">
+                          <label for="bathroom_no">Bathrooms</label>
+                          <input
+                            type="text"
+                            :value="houses[active].bathroom_no"
+                            name="bathroom_no"
+                            id="bathroom_no"
+                          >
+                        </div>
+                        <div class="form__container">
+                          <label for="dimension">Dimension</label>
+                          <div>
+                            <input
+                              type="text"
+                              :value="houses[active].dimension"
+                              name="dimension"
+                              id="dimension"
+                            >
+                            <span>Sft</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="price">
+                    <div class="title">
+                      <p>Price & Location</p>
+                    </div>
+                    <div class="input__form">
+                      <div class="first_row">
+                        <div class="form__container">
+                          <label for="price">Price</label>
+                          <div>
+                            <input
+                              type="text"
+                              :value="houses[active].price"
+                              name="price"
+                              id="price"
+                            >
+                            <span>CFA</span>
+                          </div>
+                        </div>
+                        <div class="form__container">
+                          <label for="duration">Duration</label>
+                          <select name="duration" id="duration">
+                            <option :value="houses[active].duration">{{houses[active].duration}}</option>
+                            <option value="Per Day">per day</option>
+                            <option value="Per Night">per night</option>
+                            <option value="Per Week">per week</option>
+                            <option value="Per Month">per month</option>
+                            <option value="Per Year">per year</option>
+                          </select>
+                        </div>
+                        <div class="form__container">
+                          <label for="location">Location</label>
+                          <select name="location" id="location">
+                            <option :value="houses[active].location">{{houses[active].location}}</option>
+                            <option value="Bokwoango">Bokwoango</option>
+                            <option value="Molyko">Molyko</option>
+                            <option value="Milingo">Milingo</option>
+                            <option value="Mayor's Street">Mayor's Street</option>
+                            <option value="Chief Street">Chief Street</option>
+                            <option value="UB South">UB South</option>
+                            <option value="UB Junction">UB Junction</option>
+                            <option value="Mile 17">Mile 17</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="second_row">
+                        <div class="form__container">
+                          <label for="description">Description</label>
+                          <textarea
+                            name="description"
+                            id="description"
+                            cols="10"
+                            rows="5"
+                            :value="houses[active].description"
+                          ></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="help__text">
+                    <h1>Here, You can Edit / Delete House</h1>
+                    <br>
+                    <br>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt autem error
+                      <br>
+                      <br>quos perferendis distinctio ullam rerum, beatae, minima sunt voluptatem rem quia, assumenda natus amet explicabo. Saepe iusto velit laboriosam.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="images__upload">
+                  <div class="image">
+                    <div class="title">
+                      <p>Image Upload</p>
+                    </div>
+                    <div class="input__form">
+                      <div class="first_row">
+                        <div class="form__container">
+                          <div class="preview">
+                            <img :src="previewUrl" v-if="previewUrl">
+                            <img :src="'http://localhost:8000'+houses[active].imageUrl1" v-else>
+                          </div>
+                          <label for="description">Upload</label>
+                          <input
+                            type="file"
+                            name="imageUrl"
+                            @change="onFileChange"
+                            accept="image/*"
+                            id="imageUrl"
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="image">
+                    <div class="title">
+                      <p>Image Upload</p>
+                    </div>
+                    <div class="input__form">
+                      <div class="first_row">
+                        <div class="form__container">
+                          <div class="preview">
+                            <img :src="previewUrl1" v-if="previewUrl1">
+                            <img :src="'http://localhost:8000'+houses[active].imageUrl2" v-else>
+                          </div>
+                          <label for="description">Upload</label>
+                          <input
+                            type="file"
+                            name="imageUrl"
+                            @change="onFileChange1"
+                            accept="image/*"
+                            id="imageUrl"
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="image">
+                    <div class="title">
+                      <p>Image Upload</p>
+                    </div>
+                    <div class="input__form">
+                      <div class="first_row">
+                        <div class="form__container">
+                          <div class="preview">
+                            <img :src="previewUrl2" v-if="previewUrl2">
+                            <img :src="'http://localhost:8000'+houses[active].imageUrl3" v-else>
+                          </div>
+                          <label for="description">Upload</label>
+                          <input
+                            type="file"
+                            name="imageUrl"
+                            @change="onFileChange2"
+                            accept="image/*"
+                            id="imageUrl"
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <input type="submit" @click="update" value="Update">
+              <input type="submit" @click="deleteHouse" value="Delete">
+              <input type="submit" @click="cancel" value="Cancel">
+            </form>
+          </div>
+        </div>
+      </div>
       <div class="houses__container">
         <div class="single__preview">
           <div class="bottom">
@@ -8,13 +231,13 @@
               <div class="slider-container">
                 <ul class="slider" :style="styleObject">
                   <li class="green slide">
-                    <img :src="'http://localhost:8000'+houses[0].imageUrl1">
+                    <img :src="'http://localhost:8000'+houses[active].imageUrl1">
                   </li>
                   <li class="blue slide">
-                    <img :src="'http://localhost:8000'+houses[0].imageUrl2">
+                    <img :src="'http://localhost:8000'+houses[active].imageUrl2">
                   </li>
                   <li class="grey slide">
-                    <img :src="'http://localhost:8000'+houses[0].imageUrl3">
+                    <img :src="'http://localhost:8000'+houses[active].imageUrl3">
                   </li>
                   <!-- <li class="red slide">Slide 4</li> -->
                 </ul>
@@ -30,7 +253,7 @@
             </div>
             <div class="description">
               <div class="house_title">
-                <!-- <h1>Giant Classic Building, fenced with 24 hours security</h1> -->
+                <h1>Preview</h1>
               </div>
               <div class="content">
                 <div class="input__form">
@@ -39,30 +262,30 @@
                       <label for="floor_no">Floors</label>
                       <input
                         type="text"
-                        readonly
                         name="floor_no"
-                        :value="houses[0].floor_no"
+                        :value="houses[active].floor_no"
                         id="floor_no"
+                        readonly
                       >
                     </div>
                     <div class="form__container">
                       <label for="palors_no">Palors</label>
                       <input
                         type="text"
-                        readonly
                         name="palors_no"
-                        :value="houses[0].palors_no"
+                        :value="houses[active].palors_no"
                         id="palors_no"
+                        readonly
                       >
                     </div>
                     <div class="form__container">
                       <label for="kitchen_no">Kitchens</label>
                       <input
                         type="text"
-                        readonly
                         name="kitchen_no"
-                        :value="houses[0].kitchen_no"
+                        :value="houses[active].kitchen_no"
                         id="kitchen_no"
+                        readonly
                       >
                     </div>
                   </div>
@@ -71,20 +294,20 @@
                       <label for="rooms_no">Rooms</label>
                       <input
                         type="text"
-                        readonly
                         name="rooms_no"
-                        :value="houses[0].rooms_no"
+                        :value="houses[active].rooms_no"
                         id="rooms_no"
+                        readonly
                       >
                     </div>
                     <div class="form__container">
                       <label for="bathroom_no">Bathrooms</label>
                       <input
                         type="text"
-                        readonly
                         name="bathroom_no"
-                        :value="houses[0].bathroom_no"
+                        :value="houses[active].bathroom_no"
                         id="bathroom_no"
+                        readonly
                       >
                     </div>
                     <div class="form__container">
@@ -92,10 +315,10 @@
                       <div>
                         <input
                           type="text"
-                          readonly
                           name="dimension"
-                          :value="houses[0].dimension"
+                          :value="houses[active].dimension"
                           id="dimension"
+                          readonly
                         >
                         <span>Sft</span>
                       </div>
@@ -106,20 +329,20 @@
                       <label for="rooms_no">Location</label>
                       <input
                         type="text"
-                        readonly
                         name="location"
-                        :value="houses[0].location"
+                        :value="houses[active].location"
                         id="rooms_no"
+                        readonly
                       >
                     </div>
                     <div class="form__container">
                       <label for="bathroom_no">Duration</label>
                       <input
                         type="text"
-                        readonly
                         name="duration"
-                        :value="houses[0].duration"
+                        :value="houses[active].duration"
                         id="bathroom_no"
+                        readonly
                       >
                     </div>
                     <div class="form__container">
@@ -127,10 +350,10 @@
                       <div>
                         <input
                           type="text"
-                          readonly
                           name="dimension"
                           id="dimension"
-                          v-bind:value="houses[0].price"
+                          v-bind:value="houses[active].price"
+                          readonly
                         >
                         <span>FCFA</span>
                       </div>
@@ -140,7 +363,14 @@
               </div>
               <div class="footer">
                 <div class="intro">Description</div>
-                <p>{{ houses[0].description}}</p>
+                <!-- <textarea
+                    name="description"
+                    id="description"
+                    v-model="houses[active].description"
+                    cols="30"
+                    rows="10"
+                ></textarea>-->
+                <p>{{houses[active].description}}</p>
               </div>
             </div>
           </div>
@@ -149,20 +379,51 @@
             <label>Email: {{user.email}}</label>
             <label>Tell: {{ user.tel}}</label>
           </div>
+          <div class="previous" @click="active <= 0 ? active = 0: active-=1">
+            <p><<</p>
+          </div>
+          <div
+            class="next"
+            @click="active >= (houses.length-1) ? active = (houses.length-1)  : active += 1"
+          >
+            <p>>></p>
+          </div>
         </div>
         <div class="all__houses">
-          <div class="showCase">
-            <div class="single__house" v-for="(house, index) in houses" :key="index">
+          <div class="showCase" title="Click to Edit">
+            <div
+              class="single__house"
+              @click="editHouse(house,index)"
+              v-for="(house, index) in houses"
+              :key="index"
+            >
               <div class="image__wrapper">
-                <img :src="'http://localhost:8000'+ house.imageUrl1">
+                <div class="image-child">
+                  <img :src="'http://localhost:8000'+ house.imageUrl1">
+                  <div class="infor">
+                    <p>Click To Edit</p>
+                    <p>{{house.description}}</p>
+                  </div>
+                </div>
                 <div class="image__wrapper__title">
                   <div class="image_price">
                     <h1>House</h1>
-                    <p>{{ house.price }} FCFA {{ house.duration }}</p>
                   </div>
                   <div class="btn">
-                    <button class="edit">Edit</button>
-                    <button class="view">View</button>
+                    <div>
+                      <p>Price: {{ house.price }} FCFA {{ house.duration }}</p>
+                      <p>Palors: {{house.palors_no}}</p>
+                    </div>
+                    <div>
+                      <p>Floors: {{ house.floor_no }}</p>
+                      <p>Location: {{house.location}}</p>
+                      <p>Dimension: {{house.dimension}} Sft</p>
+                    </div>
+                    <div>
+                      <p>Rooms: {{house.rooms_no}}</p>
+                      <p>Kitchen: {{house.kitchen_no}}</p>
+                      <p>Bathrooms: {{house.bathroom_no}}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -188,8 +449,13 @@ export default {
         email: this.$store.state.user.email,
         tel: this.$store.state.user.phone
       },
+      previewUrl: "",
+      previewUrl1: "",
+      previewUrl2: "",
+      active: 0,
       houses: [],
-      activeSlide: 1
+      activeSlide: 1,
+      blackBox: false
     };
   },
   computed: {
@@ -201,14 +467,34 @@ export default {
     }
   },
   methods: {
-    getfirstHouse(house) {
-      setTimeout(function() {
-        console.log(houses);
-        return houses;
-      }, 1000);
+    async update() {
+      try {
+        const form = document.querySelector(".updateHouse");
+        const formData = new FormData(form);
+        const slug = this.houses[this.active].slug;
+        let response = await HouseApi.updateHouse(slug, formData);
+        this.$router.go();
+      } catch (error) {}
+      console.log(error.response);
+    },
+    async deleteHouse() {
+      try {
+        const slug = this.houses[this.active].slug;
+        const response = await HouseApi.deleteHouse(slug);
+        this.$router.go();
+      } catch (error) {
+        console.log(error.response);
+      }
+    },
+    cancel() {
+      this.blackBox = false;
+    },
+    editHouse(house, index) {
+      this.active = index;
+      this.blackBox = true;
+      console.log(index);
     },
     changeSlide: function(num) {
-      console.log(this.house);
       this.activeSlide = num;
     },
     nextSlide: function() {
@@ -216,12 +502,57 @@ export default {
     },
     prevSlide: function() {
       if (this.activeSlide > 1) this.activeSlide--;
+    },
+    onFileChange: function(event) {
+      const file = event.target.files[0];
+      if (!file) {
+        return false;
+      }
+      if (!file.type.match("image.*")) {
+        return false;
+      }
+      const reader = new FileReader();
+      const that = this;
+      reader.onload = function(e) {
+        that.previewUrl = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    onFileChange1: function(event) {
+      const file = event.target.files[0];
+      if (!file) {
+        return false;
+      }
+      if (!file.type.match("image.*")) {
+        return false;
+      }
+      const reader = new FileReader();
+      const that = this;
+      reader.onload = function(e) {
+        that.previewUrl1 = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    onFileChange2: function(event) {
+      const file = event.target.files[0];
+      if (!file) {
+        return false;
+      }
+      if (!file.type.match("image.*")) {
+        return false;
+      }
+      const reader = new FileReader();
+      const that = this;
+      reader.onload = function(e) {
+        that.previewUrl2 = e.target.result;
+      };
+      reader.readAsDataURL(file);
     }
   },
   async beforeMount() {
     const response = await HouseApi.getAllHouse(this.$cookies.get("user").slug);
-    this.houses = response.data.user.Houses;
-    console.log(this.houses);
+    this.houses = response.data.houses;
+    // console.log(response.data);
   }
 };
 </script>
@@ -246,9 +577,11 @@ export default {
   .bottom {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    background: aliceblue;
-    padding-top: 30px;
+    background: white;
+    // padding-top: 30px;
     padding-right: 40px;
+    width: 95%;
+    margin: 0 auto;
   }
   .input__form {
     display: grid;
@@ -274,7 +607,7 @@ export default {
           img {
             height: 200px;
             width: 100%;
-            object-fit: contain;
+            object-fit: cover;
           }
         }
         textarea {
@@ -288,9 +621,9 @@ export default {
           padding: 5px 10px;
           border: 1px solid rgba(8, 8, 8, 0.171);
           outline: none;
-          border: none;
+          // border: none;
           box-shadow: 1px 1px 1px rgba(153, 153, 153, 0.3);
-          pointer-events: none;
+          // pointer-events: none;
           background: unset;
         }
         select {
@@ -360,7 +693,151 @@ export default {
     }
   }
 }
+#House__Preview .black__box {
+  height: 100vh;
+  /* width: 100%; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+  margin-left: 220px;
+  margin-top: 50px;
+  z-index: 10;
+  padding: 50px;
+  input[type="submit"] {
+    padding: 6px 15px;
+    outline: none;
+    cursor: pointer;
+    margin-right: 30px;
+    margin-top: 20px;
+  }
+  .form__wrapper {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    row-gap: 20px;
+    .house__wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr 0.5fr;
+      column-gap: 50px;
+      .help__text {
+        p {
+          text-align: justify;
+          line-height: 1.4;
+        }
+      }
+    }
+    .images__upload {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      column-gap: 50px;
+    }
+    .house__des,
+    .price,
+    .image {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      row-gap: 15px;
+      height: 100%;
+      width: 100%;
+      .title {
+        margin-bottom: unset;
+        p {
+          background-color: #444;
+          width: fit-content;
+          padding: 5px 10px;
+          border-top-right-radius: 10px;
+          border-bottom-right-radius: 10px;
+          border-top-left-radius: 10px;
+          font-size: 14px;
+          color: white;
+        }
+      }
+      .input__form {
+        display: unset;
+        grid-template-rows: repeat(2, auto);
+        row-gap: 20px;
+        .first_row,
+        .second_row {
+          display: flex;
+          flex-wrap: wrap;
+          .form__container {
+            flex: 1 1 0;
+            &:nth-child(2) {
+              margin: 0 20px;
+            }
+            label {
+              display: block;
+              margin-bottom: 3px;
+            }
+            .preview {
+              // height: 200px;
+              width: 100%;
+              border: 1px solid;
+              img {
+                height: 200px;
+                width: 100%;
+                object-fit: contain;
+              }
+            }
+            textarea {
+              width: 100%;
+              resize: none;
+              padding: 10px;
+              // height: 100px;
+            }
+            input {
+              width: 100%;
+              padding: 5px 10px;
+              border: 1px solid rgba(8, 8, 8, 0.171);
+              box-shadow: 1px 1px 1px rgba(153, 153, 153, 0.3);
+            }
+            select {
+              width: 100%;
+              text-transform: capitalize;
+              padding: 5px 10px;
+            }
+            div {
+              display: flex;
+              flex-wrap: nowrap;
+              span {
+                padding: 3px 10px;
+                border: 3px solid rgba(8, 8, 8, 0.171);
+                background-color: #444;
+                display: inline-block;
+                color: #fff;
+                margin-left: 1px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
 .single__preview {
+  position: relative;
+  .previous,
+  .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-150%);
+    background: rgba(0, 0, 0, 0.5);
+    height: 50px;
+    width: 50px;
+    font-size: 1.5em;
+    color: white;
+    display: grid;
+    place-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .previous {
+    left: 0;
+  }
+  .next {
+    right: 0;
+  }
   h1 {
     color: #888;
   }
@@ -427,63 +904,73 @@ img {
 }
 div.showCase {
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(2, auto);
   row-gap: 100px;
-  column-gap: 20px;
+  column-gap: 30px;
   padding: 30px 0;
   justify-content: space-evenly;
-  border: 1px solid black;
   .single__house {
     display: flex;
     flex-direction: column;
     .image__wrapper {
-      position: relative;
-      width: 350px;
-      height: 250px;
-      cursor: pointer;
-      &:hover .image__wrapper__title {
-        height: 35%;
-        padding: 10px;
+      .image-child {
+        position: relative;
+        &:hover > .infor {
+          height: 35%;
+        }
+        img {
+          height: 300px;
+        }
       }
-      .image__wrapper__title {
-        // height: 35%;
-        height: 0px;
-        transition: all 250ms cubic-bezier(0.075, 0.82, 0.165, 1);
-        overflow: hidden;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 6px;
+      .infor {
         position: absolute;
         bottom: 0;
+        left: 0;
+        height: 0;
+        overflow: hidden;
+        // height: 35%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        transition: all 250ms ease-in-out;
+      }
+      display: grid;
+      grid-template-columns: 1fr auto;
+      position: relative;
+      height: 300px;
+      cursor: pointer;
+      .image__wrapper__title {
+        width: 100%;
+        background-color: white;
+        color: black;
+        padding: 0 6px;
+        bottom: 0;
         display: grid;
-        grid-template-rows: repeat(2, 1fr);
-        div {
-          display: grid;
-          grid-template-columns: auto auto;
-          align-items: center;
-          column-gap: 10px;
-          button {
-            padding: 5px 10px;
-            font-size: 17px;
-            cursor: pointer;
-            outline: none;
-            border: none;
-            color: white;
-            background-color: #444;
-            &:hover {
-              background-color: rgba(68, 68, 68, 0.295);
-              color: #444;
+        grid-template-rows: 1fr auto;
+
+        .btn {
+          display: flex;
+          flex-direction: column;
+          color: black;
+          // align-items: center;
+          div {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            border-bottom: 0.5px solid #828181;
+            padding: 2px;
+            background-color: beige;
+            flex: 1 1 0;
+            margin-top: 10px;
+            p {
+              flex-grow: 1;
+              margin: 2px 0;
             }
           }
+          h1 {
+            font-size: 22px;
+          }
         }
-        h1 {
-          font-size: 22px;
-        }
-      }
-      img {
-        border-radius: 5px;
-        // border: 1px solid black;
       }
     }
   }

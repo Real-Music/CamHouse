@@ -14,7 +14,7 @@
             </li>
 
             <li class="dropdown">
-              <router-link to @click.native="routing('/house')">View Assets</router-link>
+              <router-link to @click.native="routing('/house')">My Houses</router-link>
             </li>
 
             <li class="dropdown">

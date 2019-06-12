@@ -7,9 +7,9 @@ import Dashboard from "./components/Dashboard/Index.vue";
 import VueCookies from "vue-cookies";
 
 Vue.use(VueCookies);
+VueCookies.config("7d");
 Vue.component("dashboard", Dashboard);
 
-VueCookies.config("7d");
 Vue.config.productionTip = false;
 // sync(store, router);
 

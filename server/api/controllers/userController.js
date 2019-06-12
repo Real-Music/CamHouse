@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Houses } = require("../models");
 const jwt = require("jsonwebtoken");
 const config = require("../config/config");
 const Op = require("sequelize").Op;
@@ -159,7 +159,7 @@ module.exports = {
       const { password } = req.body;
       async function access() {
         const user = await User.findOne({
-          include: [{ all: true }],
+          // include: [{ all: true }],
           where: {
             [Op.or]: [
               { phone: req.body.phone ? req.body.phone : null },
@@ -178,6 +178,7 @@ module.exports = {
         }
 
         const userJSON = user.toJSON();
+        console.log(user.toJSON());
         res.status(200).json({
           message: "Success",
           user: userJSON,

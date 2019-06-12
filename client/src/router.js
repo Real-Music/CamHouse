@@ -89,7 +89,8 @@ export default new Router({
     {
       path: "/home/:userId/new_house",
       name: "new_house",
-      component: newHouse
+      component: newHouse,
+      beforeEnter: guard
     },
     {
       path: "/home/:userId/house",
