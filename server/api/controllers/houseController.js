@@ -76,7 +76,7 @@ module.exports = {
           });
 
           const house = await House.create(tobeCreated);
-          res.status(200).json({ message: "House Created", house: house });
+          res.status(201).json({ message: "House Created", house: house });
         }
       });
     } catch (error) {
@@ -164,6 +164,7 @@ module.exports = {
 
       if (!house) return res.status(449).json({ message: "House Not Found" });
       house.destroy({ where: { id: house.id } });
+
       res.status(200).json({ message: "House Deleted" });
     } catch (error) {
       res.status(500).json({

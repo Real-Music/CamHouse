@@ -2,6 +2,7 @@ module.exports = (sequelize, Datatypes) => {
   const Studio = sequelize.define(
     "Studio",
     {
+      slug: { type: Datatypes.STRING, allowNull: false },
       bathroom_no: {
         type: Datatypes.STRING,
         allowNull: false,
@@ -20,12 +21,28 @@ module.exports = (sequelize, Datatypes) => {
         type: Datatypes.STRING,
         allowNull: false
       },
-      imageUrl: {
+      price: {
+        type: Datatypes.STRING,
+        allowNull: false
+      },
+      duration: {
         type: Datatypes.STRING,
         allowNull: false
       },
       description: {
         type: Datatypes.TEXT,
+        allowNull: false
+      },
+      imageUrl1: {
+        type: Datatypes.STRING,
+        allowNull: false
+      },
+      imageUrl2: {
+        type: Datatypes.STRING,
+        allowNull: false
+      },
+      imageUrl3: {
+        type: Datatypes.STRING,
         allowNull: false
       }
     },
