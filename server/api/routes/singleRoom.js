@@ -11,4 +11,6 @@ router.get("/:roomId", singleRoomController.singleRoom);
 router.patch("/:roomId", singleRoomController.updateSingleRoom);
 
 router.delete("/:roomId", singleRoomController.deleteSingleRoom);
+
+router.get("/user/:userId", singleRoomController.userRoom);
 module.exports = router;

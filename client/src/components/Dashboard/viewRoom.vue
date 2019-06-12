@@ -1,15 +1,15 @@
 <template>
-  <div id="Studio__Preview">
-    <dashboard title="Studio">
+  <div id="Room__Preview">
+    <dashboard title="Room">
       <div class="black__box" v-show="blackBox">
         <div class="content">
           <div class="tabcontent">
-            <form @submit.prevent class="updateStudio">
+            <form @submit.prevent class="updateRoom">
               <div class="form__wrapper">
-                <div class="studio__wrapper">
-                  <div class="studio__des">
+                <div class="room__wrapper">
+                  <div class="room__des">
                     <div class="title">
-                      <p>Studio Description</p>
+                      <p>Room Description</p>
                     </div>
                     <div class="input__form">
                       <div class="first_row">
@@ -17,7 +17,7 @@
                           <label for="kitchen_no">Kitchens</label>
                           <input
                             type="text"
-                            :value="studios[active].kitchen_no"
+                            :value="rooms[active].kitchen_no"
                             name="kitchen_no"
                             id="kitchen_no"
                           >
@@ -28,7 +28,7 @@
                           <label for="bathroom_no">Bathrooms</label>
                           <input
                             type="text"
-                            :value="studios[active].bathroom_no"
+                            :value="rooms[active].bathroom_no"
                             name="bathroom_no"
                             id="bathroom_no"
                           >
@@ -38,7 +38,7 @@
                           <div>
                             <input
                               type="text"
-                              :value="studios[active].dimension"
+                              :value="rooms[active].dimension"
                               name="dimension"
                               id="dimension"
                             >
@@ -57,19 +57,14 @@
                         <div class="form__container">
                           <label for="price">Price</label>
                           <div>
-                            <input
-                              type="text"
-                              :value="studios[active].price"
-                              name="price"
-                              id="price"
-                            >
+                            <input type="text" :value="rooms[active].price" name="price" id="price">
                             <span>CFA</span>
                           </div>
                         </div>
                         <div class="form__container">
                           <label for="duration">Duration</label>
                           <select name="duration" id="duration">
-                            <option :value="studios[active].duration">{{studios[active].duration}}</option>
+                            <option :value="rooms[active].duration">{{rooms[active].duration}}</option>
                             <option value="Per Day">per day</option>
                             <option value="Per Night">per night</option>
                             <option value="Per Week">per week</option>
@@ -80,7 +75,7 @@
                         <div class="form__container">
                           <label for="location">Location</label>
                           <select name="location" id="location">
-                            <option :value="studios[active].location">{{studios[active].location}}</option>
+                            <option :value="rooms[active].location">{{rooms[active].location}}</option>
                             <option value="Bokwoango">Bokwoango</option>
                             <option value="Molyko">Molyko</option>
                             <option value="Milingo">Milingo</option>
@@ -100,14 +95,14 @@
                             id="description"
                             cols="10"
                             rows="5"
-                            :value="studios[active].description"
+                            :value="rooms[active].description"
                           ></textarea>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="help__text">
-                    <h1>Here, You can Edit / Delete Studio</h1>
+                    <h1>Here, You can Edit / Delete Room</h1>
                     <br>
                     <br>
                     <p>
@@ -128,7 +123,7 @@
                         <div class="form__container">
                           <div class="preview">
                             <img :src="previewUrl" v-if="previewUrl">
-                            <img :src="'http://localhost:8000'+studios[active].imageUrl1" v-else>
+                            <img :src="'http://localhost:8000'+rooms[active].imageUrl1" v-else>
                           </div>
                           <label for="description">Upload</label>
                           <input
@@ -151,7 +146,7 @@
                         <div class="form__container">
                           <div class="preview">
                             <img :src="previewUrl1" v-if="previewUrl1">
-                            <img :src="'http://localhost:8000'+studios[active].imageUrl2" v-else>
+                            <img :src="'http://localhost:8000'+rooms[active].imageUrl2" v-else>
                           </div>
                           <label for="description">Upload</label>
                           <input
@@ -174,7 +169,7 @@
                         <div class="form__container">
                           <div class="preview">
                             <img :src="previewUrl2" v-if="previewUrl2">
-                            <img :src="'http://localhost:8000'+studios[active].imageUrl3" v-else>
+                            <img :src="'http://localhost:8000'+rooms[active].imageUrl3" v-else>
                           </div>
                           <label for="description">Upload</label>
                           <input
@@ -191,26 +186,26 @@
                 </div>
               </div>
               <input type="submit" @click="update" value="Update">
-              <input type="submit" @click="deleteStudio" value="Delete">
+              <input type="submit" @click="deleteRoom" value="Delete">
               <input type="submit" @click="cancel" value="Cancel">
             </form>
           </div>
         </div>
       </div>
-      <div class="studios__container">
+      <div class="rooms__container">
         <div class="single__preview">
           <div class="bottom">
             <div class="wrapper">
               <div class="slider-container">
                 <ul class="slider" :style="styleObject">
                   <li class="green slide">
-                    <img :src="'http://localhost:8000'+studios[active].imageUrl1">
+                    <img :src="'http://localhost:8000'+rooms[active].imageUrl1">
                   </li>
                   <li class="blue slide">
-                    <img :src="'http://localhost:8000'+studios[active].imageUrl2">
+                    <img :src="'http://localhost:8000'+rooms[active].imageUrl2">
                   </li>
                   <li class="grey slide">
-                    <img :src="'http://localhost:8000'+studios[active].imageUrl3">
+                    <img :src="'http://localhost:8000'+rooms[active].imageUrl3">
                   </li>
                   <!-- <li class="red slide">Slide 4</li> -->
                 </ul>
@@ -225,7 +220,7 @@
               </ul>
             </div>
             <div class="description">
-              <div class="studio_title">
+              <div class="room_title">
                 <h1>Preview</h1>
               </div>
               <div class="content">
@@ -236,7 +231,7 @@
                       <input
                         type="text"
                         name="kitchen_no"
-                        :value="studios[active].kitchen_no"
+                        :value="rooms[active].kitchen_no"
                         id="kitchen_no"
                         readonly
                       >
@@ -248,7 +243,7 @@
                       <input
                         type="text"
                         name="bathroom_no"
-                        :value="studios[active].bathroom_no"
+                        :value="rooms[active].bathroom_no"
                         id="bathroom_no"
                         readonly
                       >
@@ -258,7 +253,7 @@
                       <input
                         type="text"
                         name="location"
-                        :value="studios[active].location"
+                        :value="rooms[active].location"
                         id="rooms_no"
                         readonly
                       >
@@ -269,7 +264,7 @@
                         <input
                           type="text"
                           name="dimension"
-                          :value="studios[active].dimension"
+                          :value="rooms[active].dimension"
                           id="dimension"
                           readonly
                         >
@@ -283,7 +278,7 @@
                       <input
                         type="text"
                         name="duration"
-                        :value="studios[active].duration"
+                        :value="rooms[active].duration"
                         id="bathroom_no"
                         readonly
                       >
@@ -295,7 +290,7 @@
                           type="text"
                           name="dimension"
                           id="dimension"
-                          v-bind:value="studios[active].price"
+                          v-bind:value="rooms[active].price"
                           readonly
                         >
                         <span>FCFA</span>
@@ -309,11 +304,11 @@
                 <!-- <textarea
                     name="description"
                     id="description"
-                    v-model="studios[active].description"
+                    v-model="rooms[active].description"
                     cols="30"
                     rows="10"
                 ></textarea>-->
-                <p>{{studios[active].description}}</p>
+                <p>{{rooms[active].description}}</p>
               </div>
             </div>
           </div>
@@ -327,42 +322,42 @@
           </div>
           <div
             class="next"
-            @click="active >= (studios.length-1) ? active = (studios.length-1)  : active += 1"
+            @click="active >= (rooms.length-1) ? active = (rooms.length-1)  : active += 1"
           >
             <p>>></p>
           </div>
         </div>
-        <div class="all__studios">
+        <div class="all__rooms">
           <div class="showCase" title="Click to Edit">
             <div
-              class="single__studio"
-              @click="editStudio(studio,index)"
-              v-for="(studio, index) in studios"
+              class="single__room"
+              @click="editRoom(room,index)"
+              v-for="(room, index) in rooms"
               :key="index"
             >
               <div class="image__wrapper">
                 <div class="image-child">
-                  <img :src="'http://localhost:8000'+ studio.imageUrl1">
+                  <img :src="'http://localhost:8000'+ room.imageUrl1">
                   <div class="infor">
                     <p>Click To Edit</p>
-                    <p>{{studio.description}}</p>
+                    <p>{{room.description}}</p>
                   </div>
                 </div>
                 <div class="image__wrapper__title">
                   <div class="image_price">
-                    <h1>Studio</h1>
+                    <h1>Room</h1>
                   </div>
                   <div class="btn">
                     <div>
-                      <p>Price: {{ studio.price }} FCFA {{ studio.duration }}</p>
+                      <p>Price: {{ room.price }} FCFA {{ room.duration }}</p>
                     </div>
                     <div>
-                      <p>Location: {{studio.location}}</p>
-                      <p>Dimension: {{studio.dimension}} Sft</p>
+                      <p>Kitchen: {{room.kitchen_no}}</p>
+                      <p>Bathrooms: {{room.bathroom_no}}</p>
                     </div>
                     <div>
-                      <p>Kitchen: {{studio.kitchen_no}}</p>
-                      <p>Bathrooms: {{studio.bathroom_no}}</p>
+                      <p>Location: {{room.location}}</p>
+                      <p>Dimension: {{room.dimension}} Sft</p>
                     </div>
                   </div>
                 </div>
@@ -376,7 +371,7 @@
 </template>        
 
 <script>
-import StudioApi from "@/services/StudioApi";
+import singleRoomApi from "@/services/singleRoomApi";
 
 export default {
   data() {
@@ -393,7 +388,7 @@ export default {
       previewUrl1: "",
       previewUrl2: "",
       active: 0,
-      studios: [],
+      rooms: [],
       activeSlide: 1,
       blackBox: false
     };
@@ -409,18 +404,19 @@ export default {
   methods: {
     async update() {
       try {
-        const form = document.querySelector(".updateStudio");
+        const form = document.querySelector(".updateRoom");
         const formData = new FormData(form);
-        const slug = this.studios[this.active].slug;
-        let response = await StudioApi.updateStudio(slug, formData);
+        const slug = this.rooms[this.active].slug;
+        let response = await singleRoomApi.updateRoom(slug, formData);
         this.$router.go();
-      } catch (error) {}
-      console.log(error.response);
+      } catch (error) {
+        console.log(error.response);
+      }
     },
-    async deleteStudio() {
+    async deleteRoom() {
       try {
-        const slug = this.studios[this.active].slug;
-        const response = await StudioApi.deleteStudio(slug);
+        const slug = this.rooms[this.active].slug;
+        const response = await singleRoomApi.deleteRoom(slug);
         this.$router.go();
       } catch (error) {
         console.log(error.response);
@@ -429,10 +425,10 @@ export default {
     cancel() {
       this.blackBox = false;
     },
-    editStudio(studio, index) {
+    editRoom(room, index) {
       this.active = index;
       this.blackBox = true;
-      console.log(studio, index);
+      console.log(room, index);
     },
     changeSlide: function(num) {
       this.activeSlide = num;
@@ -490,17 +486,17 @@ export default {
     }
   },
   async beforeMount() {
-    const response = await StudioApi.getAllStudio(
+    const response = await singleRoomApi.getAllRoom(
       this.$cookies.get("user").slug
     );
-    this.studios = response.data.studios;
     console.log(response);
+    this.rooms = response.data.rooms;
   }
 };
 </script>
 
 <style lang="scss" scoped>
-#Studio__Preview {
+#Room__Preview {
   // position: relative;
   display: grid;
   grid-template-rows: auto 1fr;
@@ -608,7 +604,7 @@ export default {
       border-bottom-right-radius: 10px;
       border-top-left-radius: 10px;
     }
-    .studio_title {
+    .room_title {
       border-bottom: 1px solid #888;
       width: 80%;
       padding-bottom: 10px;
@@ -635,7 +631,7 @@ export default {
     }
   }
 }
-#Studio__Preview .black__box {
+#Room__Preview .black__box {
   height: 100vh;
   /* width: 100%; */
   position: fixed;
@@ -657,7 +653,7 @@ export default {
     display: grid;
     grid-template-rows: 1fr auto;
     row-gap: 20px;
-    .studio__wrapper {
+    .room__wrapper {
       display: grid;
       grid-template-columns: 1fr 1fr 0.5fr;
       column-gap: 50px;
@@ -673,7 +669,7 @@ export default {
       grid-template-columns: 1fr 1fr 1fr;
       column-gap: 50px;
     }
-    .studio__des,
+    .room__des,
     .price,
     .image {
       display: grid;
@@ -851,7 +847,7 @@ div.showCase {
   column-gap: 30px;
   padding: 30px 0;
   justify-content: space-evenly;
-  .single__studio {
+  .single__room {
     display: flex;
     flex-direction: column;
     .image__wrapper {

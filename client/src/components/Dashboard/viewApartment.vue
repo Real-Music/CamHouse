@@ -890,7 +890,7 @@ img {
 }
 div.showCase {
   display: grid;
-  grid-template-columns: repeat(2, auto);
+  grid-template-columns: repeat(2, 1fr);
   row-gap: 100px;
   column-gap: 30px;
   padding: 30px 0;

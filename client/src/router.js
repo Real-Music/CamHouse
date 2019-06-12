@@ -9,6 +9,7 @@ import newHouse from "./components/Dashboard/House.vue";
 import viewHouse from "./components/Dashboard/House__Preview.vue";
 import viewApartment from "./components/Dashboard/viewApartment.vue";
 import viewStudio from "./components/Dashboard/viewStudio.vue";
+import viewRoom from "./components/Dashboard/viewRoom.vue";
 
 Vue.use(VueCookies);
 Vue.use(Router);
@@ -117,6 +118,12 @@ export default new Router({
       path: "/home/:userId/studio",
       name: "studio",
       component: viewStudio,
+      beforeEnter: guard
+    },
+    {
+      path: "/home/:userId/room",
+      name: "room",
+      component: viewRoom,
       beforeEnter: guard
     }
   ]
