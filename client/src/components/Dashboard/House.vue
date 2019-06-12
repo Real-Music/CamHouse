@@ -21,205 +21,383 @@
               v-bind:class="[ activetab === '4' ? 'active' : '' ]"
             >New Room</a>
           </div>
+        </div>
+        <div class="content">
+          <div v-if="activetab ==='1'" class="tabcontent">
+            <form @submit.prevent="createHouse" class="createHouse">
+              <div class="form__wrapper">
+                <div class="house__wrapper">
+                  <div class="house__des">
+                    <div class="title">
+                      <p>House Description</p>
+                    </div>
+                    <div class="input__form">
+                      <div class="first_row">
+                        <div class="form__container">
+                          <label for="floor_no">Number of floors</label>
+                          <input type="text" required name="floor_no" id="floor_no">
+                        </div>
+                        <div class="form__container">
+                          <label for="palors_no">Palors</label>
+                          <input type="text" required name="palors_no" id="palors_no">
+                        </div>
+                        <div class="form__container">
+                          <label for="kitchen_no">Kitchens</label>
+                          <input type="text" required name="kitchen_no" id="kitchen_no">
+                        </div>
+                      </div>
+                      <div class="second_row">
+                        <div class="form__container">
+                          <label for="rooms_no">Rooms</label>
+                          <input type="text" required name="rooms_no" id="rooms_no">
+                        </div>
+                        <div class="form__container">
+                          <label for="bathroom_no">Bathrooms</label>
+                          <input type="text" required name="bathroom_no" id="bathroom_no">
+                        </div>
+                        <div class="form__container">
+                          <label for="dimension">Dimension</label>
+                          <div>
+                            <input type="text" required name="dimension" id="dimension">
+                            <span>Sft</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="price">
+                    <div class="title">
+                      <p>Price & Location</p>
+                    </div>
+                    <div class="input__form">
+                      <div class="first_row">
+                        <div class="form__container">
+                          <label for="price">Price</label>
+                          <div>
+                            <input type="text" required name="price" id="price">
+                            <span>CFA</span>
+                          </div>
+                        </div>
+                        <div class="form__container">
+                          <label for="duration">Duration</label>
+                          <select name="duration" id="duration">
+                            <option value="Per Day">per day</option>
+                            <option value="Per Night">per night</option>
+                            <option value="Per Week">per week</option>
+                            <option value="Per Month">per month</option>
+                            <option value="Per Year">per year</option>
+                          </select>
+                        </div>
+                        <div class="form__container">
+                          <label for="location">Location</label>
+                          <select name="location" id="location">
+                            <option value="Bokwoango">Bokwoango</option>
+                            <option value="Molyko">Molyko</option>
+                            <option value="Milingo">Milingo</option>
+                            <option value="Mayor's Street">Mayor's Street</option>
+                            <option value="Chief Street">Chief Street</option>
+                            <option value="UB South">UB South</option>
+                            <option value="UB Junction">UB Junction</option>
+                            <option value="Mile 17">Mile 17</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="second_row">
+                        <div class="form__container">
+                          <label for="description">Description</label>
+                          <textarea name="description" id="description" cols="10" required rows="5"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="help__text">
+                    <h1>Help Text For House</h1>
+                    <br>
+                    <br>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt autem error
+                      <br>
+                      <br>quos perferendis distinctio ullam rerum, beatae, minima sunt voluptatem rem quia, assumenda natus amet explicabo. Saepe iusto velit laboriosam.
+                    </p>
+                  </div>
+                </div>
 
-          <div class="content">
-            <div v-if="activetab ==='1'" class="tabcontent">
-              <form @submit.prevent="createHouse" class="createHouse">
-                <div class="form__wrapper">
-                  <div class="house__wrapper">
-                    <div class="house__des">
-                      <div class="title">
-                        <p>House Description</p>
-                      </div>
-                      <div class="input__form">
-                        <div class="first_row">
-                          <div class="form__container">
-                            <label for="floor_no">Number of floors</label>
-                            <input type="text" required name="floor_no" id="floor_no">
-                          </div>
-                          <div class="form__container">
-                            <label for="palors_no">Palors</label>
-                            <input type="text" required name="palors_no" id="palors_no">
-                          </div>
-                          <div class="form__container">
-                            <label for="kitchen_no">Kitchens</label>
-                            <input type="text" required name="kitchen_no" id="kitchen_no">
-                          </div>
-                        </div>
-                        <div class="second_row">
-                          <div class="form__container">
-                            <label for="rooms_no">Rooms</label>
-                            <input type="text" required name="rooms_no" id="rooms_no">
-                          </div>
-                          <div class="form__container">
-                            <label for="bathroom_no">Bathrooms</label>
-                            <input type="text" required name="bathroom_no" id="bathroom_no">
-                          </div>
-                          <div class="form__container">
-                            <label for="dimension">Dimension</label>
-                            <div>
-                              <input type="text" required name="dimension" id="dimension">
-                              <span>Sft</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                <div class="images__upload">
+                  <div class="image">
+                    <div class="title">
+                      <p>Image Upload</p>
                     </div>
-                    <div class="price">
-                      <div class="title">
-                        <p>Price & Location</p>
-                      </div>
-                      <div class="input__form">
-                        <div class="first_row">
-                          <div class="form__container">
-                            <label for="price">Price</label>
-                            <div>
-                              <input type="text" required name="price" id="price">
-                              <span>CFA</span>
-                            </div>
+                    <div class="input__form">
+                      <div class="first_row">
+                        <div class="form__container">
+                          <div class="preview">
+                            <img :src="previewUrl" v-if="previewUrl">
+                            <img
+                              src="https://media.istockphoto.com/photos/render-sketch-of-modern-cozy-house-in-chalet-style-picture-id858388106?k=6&m=858388106&s=612x612&w=0&h=w3o9PaWvA7v2-OTidMfa34QsRq3mfLGvqYRSs3dzdls="
+                              v-else
+                            >
+                            <!-- <p >No image...</p> -->
                           </div>
-                          <div class="form__container">
-                            <label for="duration">Duration</label>
-                            <select name="duration" id="duration">
-                              <option value="Per Day">per day</option>
-                              <option value="Per Night">per night</option>
-                              <option value="Per Week">per week</option>
-                              <option value="Per Month">per month</option>
-                              <option value="Per Year">per year</option>
-                            </select>
-                          </div>
-                          <div class="form__container">
-                            <label for="location">Location</label>
-                            <select name="location" id="location">
-                              <option value="Bokwoango">Bokwoango</option>
-                              <option value="Molyko">Molyko</option>
-                              <option value="Milingo">Milingo</option>
-                              <option value="Mayor's Street">Mayor's Street</option>
-                              <option value="Chief Street">Chief Street</option>
-                              <option value="UB South">UB South</option>
-                              <option value="UB Junction">UB Junction</option>
-                              <option value="Mile 17">Mile 17</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="second_row">
-                          <div class="form__container">
-                            <label for="description">Description</label>
-                            <textarea
-                              name="description"
-                              id="description"
-                              cols="10"
-                              required
-                              rows="5"
-                            ></textarea>
-                          </div>
+                          <label for="description">Upload</label>
+                          <input
+                            type="file"
+                            required
+                            name="imageUrl"
+                            @change="onFileChange"
+                            accept="image/*"
+                            id="imageUrl"
+                          >
                         </div>
                       </div>
-                    </div>
-                    <div class="help__text">
-                      <h1>Help Text For House</h1>
-                      <br>
-                      <br>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt autem error
-                        <br>
-                        <br>quos perferendis distinctio ullam rerum, beatae, minima sunt voluptatem rem quia, assumenda natus amet explicabo. Saepe iusto velit laboriosam.
-                      </p>
                     </div>
                   </div>
-
-                  <div class="images__upload">
-                    <div class="image">
-                      <div class="title">
-                        <p>Image Upload</p>
-                      </div>
-                      <div class="input__form">
-                        <div class="first_row">
-                          <div class="form__container">
-                            <div class="preview">
-                              <img :src="previewUrl" v-if="previewUrl">
-                              <img
-                                src="https://media.istockphoto.com/photos/render-sketch-of-modern-cozy-house-in-chalet-style-picture-id858388106?k=6&m=858388106&s=612x612&w=0&h=w3o9PaWvA7v2-OTidMfa34QsRq3mfLGvqYRSs3dzdls="
-                                v-else
-                              >
-                              <!-- <p >No image...</p> -->
-                            </div>
-                            <label for="description">Upload</label>
-                            <input
-                              type="file"
-                              required
-                              name="imageUrl"
-                              @change="onFileChange"
-                              accept="image/*"
-                              id="imageUrl"
+                  <div class="image">
+                    <div class="title">
+                      <p>Image Upload</p>
+                    </div>
+                    <div class="input__form">
+                      <div class="first_row">
+                        <div class="form__container">
+                          <div class="preview">
+                            <img :src="previewUrl1" v-if="previewUrl1">
+                            <img
+                              src="https://media.istockphoto.com/photos/render-sketch-of-modern-cozy-house-in-chalet-style-picture-id858388106?k=6&m=858388106&s=612x612&w=0&h=w3o9PaWvA7v2-OTidMfa34QsRq3mfLGvqYRSs3dzdls="
+                              v-else
                             >
                           </div>
+                          <label for="description">Upload</label>
+                          <input
+                            type="file"
+                            required
+                            name="imageUrl"
+                            @change="onFileChange1"
+                            accept="image/*"
+                            id="imageUrl"
+                          >
                         </div>
                       </div>
                     </div>
-                    <div class="image">
-                      <div class="title">
-                        <p>Image Upload</p>
-                      </div>
-                      <div class="input__form">
-                        <div class="first_row">
-                          <div class="form__container">
-                            <div class="preview">
-                              <img :src="previewUrl1" v-if="previewUrl1">
-                              <img
-                                src="https://media.istockphoto.com/photos/render-sketch-of-modern-cozy-house-in-chalet-style-picture-id858388106?k=6&m=858388106&s=612x612&w=0&h=w3o9PaWvA7v2-OTidMfa34QsRq3mfLGvqYRSs3dzdls="
-                                v-else
-                              >
-                            </div>
-                            <label for="description">Upload</label>
-                            <input
-                              type="file"
-                              required
-                              name="imageUrl"
-                              @change="onFileChange1"
-                              accept="image/*"
-                              id="imageUrl"
-                            >
-                          </div>
-                        </div>
-                      </div>
+                  </div>
+                  <div class="image">
+                    <div class="title">
+                      <p>Image Upload</p>
                     </div>
-                    <div class="image">
-                      <div class="title">
-                        <p>Image Upload</p>
-                      </div>
-                      <div class="input__form">
-                        <div class="first_row">
-                          <div class="form__container">
-                            <div class="preview">
-                              <img :src="previewUrl2" v-if="previewUrl2">
-                              <img
-                                src="https://media.istockphoto.com/photos/render-sketch-of-modern-cozy-house-in-chalet-style-picture-id858388106?k=6&m=858388106&s=612x612&w=0&h=w3o9PaWvA7v2-OTidMfa34QsRq3mfLGvqYRSs3dzdls="
-                                v-else
-                              >
-                            </div>
-                            <label for="description">Upload</label>
-                            <input
-                              type="file"
-                              required
-                              name="imageUrl"
-                              @change="onFileChange2"
-                              accept="image/*"
-                              id="imageUrl"
+                    <div class="input__form">
+                      <div class="first_row">
+                        <div class="form__container">
+                          <div class="preview">
+                            <img :src="previewUrl2" v-if="previewUrl2">
+                            <img
+                              src="https://media.istockphoto.com/photos/render-sketch-of-modern-cozy-house-in-chalet-style-picture-id858388106?k=6&m=858388106&s=612x612&w=0&h=w3o9PaWvA7v2-OTidMfa34QsRq3mfLGvqYRSs3dzdls="
+                              v-else
                             >
                           </div>
+                          <label for="description">Upload</label>
+                          <input
+                            type="file"
+                            required
+                            name="imageUrl"
+                            @change="onFileChange2"
+                            accept="image/*"
+                            id="imageUrl"
+                          >
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <input type="submit" value="Create">
-              </form>
-            </div>
+              </div>
+              <input type="submit" value="Create">
+            </form>
           </div>
         </div>
+
         <div v-if="activetab === '2'" class="tabcontent">
-          <h1>Two</h1>
+          <form @submit.prevent="createApartment" class="createApartment">
+            <div class="form__wrapper">
+              <div class="house__wrapper">
+                <div class="house__des">
+                  <div class="title">
+                    <p>Apartment Description</p>
+                  </div>
+                  <div class="input__form">
+                    <div class="first_row">
+                      <!-- <div class="form__container">
+                        <label for="floor_no">Number of floors</label>
+                        <input type="text" required name="floor_no" id="floor_no">
+                      </div>-->
+                      <div class="form__container">
+                        <label for="palors_no">Palors</label>
+                        <input type="text" required name="palors_no" id="palors_no">
+                      </div>
+                      <div class="form__container">
+                        <label for="kitchen_no">Kitchens</label>
+                        <input type="text" required name="kitchen_no" id="kitchen_no">
+                      </div>
+                    </div>
+                    <div class="second_row">
+                      <div class="form__container">
+                        <label for="rooms_no">Rooms</label>
+                        <input type="text" required name="rooms_no" id="rooms_no">
+                      </div>
+                      <div class="form__container">
+                        <label for="bathroom_no">Bathrooms</label>
+                        <input type="text" required name="bathroom_no" id="bathroom_no">
+                      </div>
+                      <div class="form__container">
+                        <label for="dimension">Dimension</label>
+                        <div>
+                          <input type="text" required name="dimension" id="dimension">
+                          <span>Sft</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="price">
+                  <div class="title">
+                    <p>Price & Location</p>
+                  </div>
+                  <div class="input__form">
+                    <div class="first_row">
+                      <div class="form__container">
+                        <label for="price">Price</label>
+                        <div>
+                          <input type="text" required name="price" id="price">
+                          <span>CFA</span>
+                        </div>
+                      </div>
+                      <div class="form__container">
+                        <label for="duration">Duration</label>
+                        <select name="duration" id="duration">
+                          <option value="Per Day">per day</option>
+                          <option value="Per Night">per night</option>
+                          <option value="Per Week">per week</option>
+                          <option value="Per Month">per month</option>
+                          <option value="Per Year">per year</option>
+                        </select>
+                      </div>
+                      <div class="form__container">
+                        <label for="location">Location</label>
+                        <select name="location" id="location">
+                          <option value="Bokwoango">Bokwoango</option>
+                          <option value="Molyko">Molyko</option>
+                          <option value="Milingo">Milingo</option>
+                          <option value="Mayor's Street">Mayor's Street</option>
+                          <option value="Chief Street">Chief Street</option>
+                          <option value="UB South">UB South</option>
+                          <option value="UB Junction">UB Junction</option>
+                          <option value="Mile 17">Mile 17</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="second_row">
+                      <div class="form__container">
+                        <label for="description">Description</label>
+                        <textarea name="description" id="description" cols="10" required rows="5"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="help__text">
+                  <h1>Apartment Help Text</h1>
+                  <br>
+                  <br>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt autem error
+                    <br>
+                    <br>quos perferendis distinctio ullam rerum, beatae, minima sunt voluptatem rem quia, assumenda natus amet explicabo. Saepe iusto velit laboriosam.
+                  </p>
+                </div>
+              </div>
+
+              <div class="images__upload">
+                <div class="image">
+                  <div class="title">
+                    <p>Image Upload</p>
+                  </div>
+                  <div class="input__form">
+                    <div class="first_row">
+                      <div class="form__container">
+                        <div class="preview">
+                          <img :src="previewUrl" v-if="previewUrl">
+                          <img
+                            src="https://media.istockphoto.com/photos/render-sketch-of-modern-cozy-house-in-chalet-style-picture-id858388106?k=6&m=858388106&s=612x612&w=0&h=w3o9PaWvA7v2-OTidMfa34QsRq3mfLGvqYRSs3dzdls="
+                            v-else
+                          >
+                          <!-- <p >No image...</p> -->
+                        </div>
+                        <label for="description">Upload</label>
+                        <input
+                          type="file"
+                          required
+                          name="imageUrl"
+                          @change="onFileChange"
+                          accept="image/*"
+                          id="imageUrl"
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="image">
+                  <div class="title">
+                    <p>Image Upload</p>
+                  </div>
+                  <div class="input__form">
+                    <div class="first_row">
+                      <div class="form__container">
+                        <div class="preview">
+                          <img :src="previewUrl1" v-if="previewUrl1">
+                          <img
+                            src="https://media.istockphoto.com/photos/render-sketch-of-modern-cozy-house-in-chalet-style-picture-id858388106?k=6&m=858388106&s=612x612&w=0&h=w3o9PaWvA7v2-OTidMfa34QsRq3mfLGvqYRSs3dzdls="
+                            v-else
+                          >
+                        </div>
+                        <label for="description">Upload</label>
+                        <input
+                          type="file"
+                          required
+                          name="imageUrl"
+                          @change="onFileChange1"
+                          accept="image/*"
+                          id="imageUrl"
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="image">
+                  <div class="title">
+                    <p>Image Upload</p>
+                  </div>
+                  <div class="input__form">
+                    <div class="first_row">
+                      <div class="form__container">
+                        <div class="preview">
+                          <img :src="previewUrl2" v-if="previewUrl2">
+                          <img
+                            src="https://media.istockphoto.com/photos/render-sketch-of-modern-cozy-house-in-chalet-style-picture-id858388106?k=6&m=858388106&s=612x612&w=0&h=w3o9PaWvA7v2-OTidMfa34QsRq3mfLGvqYRSs3dzdls="
+                            v-else
+                          >
+                        </div>
+                        <label for="description">Upload</label>
+                        <input
+                          type="file"
+                          required
+                          name="imageUrl"
+                          @change="onFileChange2"
+                          accept="image/*"
+                          id="imageUrl"
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <input type="submit" value="Create Apartment">
+          </form>
         </div>
         <div v-if="activetab === '3'" class="tabcontent">
           <h1>Three</h1>
@@ -234,6 +412,7 @@
 
 <script>
 import HouseApi from "@/services/HouseApi";
+import ApartmentApi from "@/services/ApartmentApi";
 
 export default {
   name: "createHouse",
@@ -255,22 +434,34 @@ export default {
         const form = document.querySelector(".createHouse");
         const formData = new FormData(form);
         const slug = this.$cookies.get("user").slug;
-        // this.$cookies.get("user").token;
-        let response = await HouseApi.createHouse(slug, formData);
+
+        const response = await HouseApi.createHouse(slug, formData);
         this.$store.dispatch("setHouse", response.data.house);
 
         this.$router.push({
           name: "house",
           params: { userId: this.$cookies.get("user").slug }
         });
-        // this.$router.push({name: "viewHouse",params: {userId: this.$cookies.get("user").slug,houseId: response.data.slug}});
-        // this.$router.push({
-        //   path: this.currentRoute + "/" + response.data.house.slug
-        // });
 
         console.log(response.data);
       } catch (error) {
-        console.log(error);
+        console.log(error.response.data);
+      }
+    },
+    async createApartment() {
+      try {
+        const form = document.querySelector(".createApartment");
+        const formData = new FormData(form);
+        const slug = this.$cookies.get("user").slug;
+
+        const response = await ApartmentApi.create(slug, formData);
+        this.$store.dispatch("setApartment", response.data.apartment);
+
+        this.$router.push({
+          name: "apartment",
+          params: { userId: this.$cookies.get("user").slug }
+        });
+      } catch (error) {
         console.log(error.response.data);
       }
     },
@@ -427,17 +618,15 @@ form {
   .image {
     display: grid;
     grid-template-rows: auto 1fr;
-    row-gap: 15px;
     height: 100%;
     width: 100%;
     .title {
+      margin-bottom: unset;
       p {
         background-color: #444;
         width: fit-content;
         padding: 5px 10px;
         border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-        border-top-left-radius: 10px;
         font-size: 14px;
         color: white;
       }

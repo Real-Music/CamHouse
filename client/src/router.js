@@ -7,6 +7,7 @@ import Tenant from "./components/Register User/Tenant.vue";
 import Index from "./views/Index.vue";
 import newHouse from "./components/Dashboard/House.vue";
 import viewHouse from "./components/Dashboard/House__Preview.vue";
+import viewApartment from "./components/Dashboard/viewApartment.vue";
 
 Vue.use(VueCookies);
 Vue.use(Router);
@@ -93,6 +94,7 @@ export default new Router({
       beforeEnter: guard
     },
     {
+      // For Houses
       path: "/home/:userId/house",
       name: "house",
       component: viewHouse,
@@ -102,6 +104,12 @@ export default new Router({
       path: "/home/:userId/house/:houseId",
       name: "viewHouse",
       component: viewHouse,
+      beforeEnter: guard
+    },
+    {
+      path: "/home/:userId/apartment",
+      name: "apartment",
+      component: viewApartment,
       beforeEnter: guard
     }
   ]

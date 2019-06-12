@@ -16,6 +16,9 @@
             <li class="dropdown">
               <router-link to @click.native="routing('/house')">My Houses</router-link>
             </li>
+            <li class="dropdown">
+              <router-link to @click.native="routing('/apartment')">My Apartments</router-link>
+            </li>
 
             <li class="dropdown">
               <router-link to @click.native="logout">Logout</router-link>

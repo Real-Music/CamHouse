@@ -15,12 +15,16 @@ export default new Vuex.Store({
     showLogin: true,
     showHome: true,
     user: null,
-    house: null
+    house: null,
+    apartment: null
   },
   plugins: [createPersistedState()],
   mutations: {
     setHouse(state, value) {
       state.house = value;
+    },
+    setApartment(state, value) {
+      state.apartment = value;
     },
     setUser(state, value) {
       state.user = value;
@@ -47,6 +51,9 @@ export default new Vuex.Store({
   actions: {
     setHouse({ commit }, house) {
       commit("setHouse", house);
+    },
+    setApartment({ commit }, apartment) {
+      commit("setApartment", apartment);
     },
     setUser({ commit }, user) {
       commit("setUser", user);

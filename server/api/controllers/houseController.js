@@ -49,7 +49,6 @@ module.exports = {
   async getHouse(req, res, next) {
     try {
       const houses = await House.findAll({
-        // raw: true,
         order: [["id", "DESC"]]
       });
       res.status(200).json({ message: "All House", houses: houses });
@@ -81,7 +80,7 @@ module.exports = {
         }
       });
     } catch (error) {
-      res.status(500).json({ message: "F" });
+      res.status(500).json({ message: "Internal Error Creating House" });
     }
   },
   async singleHouse(req, res, next) {
@@ -103,7 +102,7 @@ module.exports = {
         raw: true
       });
       if (!user) return res.status(449).json({ message: "Bad Request" });
-      console.log(user.id);
+
       const house = await House.findAll({
         where: { userId: user.id },
         order: [["id", "DESC"]]
@@ -113,7 +112,7 @@ module.exports = {
         houses: house
       });
     } catch (error) {
-      res.status(500).json({ message: "Internal Error Fetching Single House" });
+      res.status(500).json({ message: "Internal Error Fetching Users House" });
     }
   },
   async updateHouse(req, res, next) {
