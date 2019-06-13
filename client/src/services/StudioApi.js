@@ -16,5 +16,8 @@ export default {
   },
   deleteStudio(slug) {
     return Api().delete(`/studio/${slug}`);
+  },
+  getStudios() {
+    return Api().get("/studio");
   }
 };

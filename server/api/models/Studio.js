@@ -2,6 +2,11 @@ module.exports = (sequelize, Datatypes) => {
   const Studio = sequelize.define(
     "Studio",
     {
+      title: {
+        type: Datatypes.STRING,
+        allowNull: true,
+        defaultValue: "Studio"
+      },
       slug: { type: Datatypes.STRING, allowNull: false },
       bathroom_no: {
         type: Datatypes.STRING,

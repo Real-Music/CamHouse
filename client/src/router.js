@@ -10,6 +10,7 @@ import viewHouse from "./components/Dashboard/House__Preview.vue";
 import viewApartment from "./components/Dashboard/viewApartment.vue";
 import viewStudio from "./components/Dashboard/viewStudio.vue";
 import viewRoom from "./components/Dashboard/viewRoom.vue";
+import Search from "./components/Search/Search.vue";
 
 Vue.use(VueCookies);
 Vue.use(Router);
@@ -46,6 +47,21 @@ export default new Router({
           store.dispatch("showSignUp", true);
           store.dispatch("showLogin", true);
           store.dispatch("showHome", true);
+          next();
+        }
+      }
+    },
+    {
+      path: "/search",
+      name: "search",
+      component: Search,
+      beforeEnter(to, from, next) {
+        if (store.state.isUserLogIn) {
+          store.dispatch("showDashboard", true);
+          store.dispatch("showLogin", false);
+          next();
+        } else {
+          store.dispatch("showDashboard", false);
           next();
         }
       }

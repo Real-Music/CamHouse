@@ -368,13 +368,6 @@
                 </div>
                 <div class="footer">
                   <div class="intro">Description</div>
-                  <!-- <textarea
-                    name="description"
-                    id="description"
-                    v-model="houses[active].description"
-                    cols="30"
-                    rows="10"
-                  ></textarea>-->
                   <p>{{houses[active].description}}</p>
                 </div>
               </div>

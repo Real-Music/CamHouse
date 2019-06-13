@@ -3,30 +3,16 @@
     <nav class="main_navigation">
       <div class="background">
         <div class="content">
-          <p>Search for house:</p>
-          <form action="#">
-            <select name="Location" id="location">
-              <option value>Location</option>
-              <option value="b">Bokwoango</option>
-              <option value>Molyko</option>
-              <option value>Milingo</option>
-              <option value>Mayor's Street</option>
-              <option value>Chief Street</option>
-              <option value>UB South</option>
-              <option value>UB Junction</option>
-              <option value>Mile 17</option>
-            </select>
-
-            <select name="Price" id="price">
-              <option value>price</option>
-              <option value>20,000CFA</option>
-              <option value>50,000CFA</option>
-              <option value>100,000CFA</option>
-              <option value>250,000CFA</option>
-              <option value>1,000,000 CFA</option>
-            </select>
-            <input type="submit" value="Search">
-          </form>
+          <h1>
+            <span>
+              CamHome
+              <i class="fas fa-home"></i>
+            </span> - Your Comfort is Our Priority.
+          </h1>
+          <router-link to="/search">
+            Search
+            <i class="fas fa-home"></i>
+          </router-link>
         </div>
       </div>
     </nav>
@@ -495,6 +481,13 @@ export default {
   name: "HelloWorld",
   props: {
     msg: String
+  },
+  methods: {
+    routing(path) {
+      this.$router.push({
+        path: "/home/" + this.$cookies.get("user").slug + path
+      });
+    }
   }
 };
 </script>
@@ -562,9 +555,9 @@ nav.main_navigation ul a:hover {
 }
 
 div.background {
-  height: 95vh;
-  background: rgba(0, 0, 0, 0.9) url("../assets/indexpageimg/room2.jpg")
-    no-repeat center left fixed;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../assets/indexpageimg/room2.jpg") no-repeat center left fixed;
   background-size: cover;
   display: grid;
 }
@@ -573,16 +566,41 @@ div.background .content {
   text-align: center;
   align-self: center;
   justify-self: center;
-  background-color: rgba(0, 0, 0, 0.337);
+  width: 60%;
+  // background-color: rgba(0, 0, 0, 0.337);
+  h1 {
+    font-size: 2.7rem;
+    span {
+      color: #00bfff;
+    }
+    color: white;
+    margin-bottom: 30px;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+    padding: 10px 20px;
+    background: #dddddd;
+    border: none;
+    font-size: 20px;
+    outline: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 150ms ease-in-out;
+    &:hover {
+      background: #bdbaba;
+    }
+  }
 }
 
 div.background .content p {
   color: #fff;
-  font-size: 40px;
-  text-align: left;
-  font-weight: bolder;
+  // font-size: 40px;
+  text-align: justify;
+  // font-weight: bolder;
   border-radius: 5px;
   padding: 5px 10px;
+  line-height: 1.5em;
 }
 
 div.background .content form {
@@ -613,13 +631,13 @@ div.background .content form input[type="submit"] {
   text-transform: uppercase;
   font-weight: bolder;
   color: var(--text);
-  background-color: var(--bg);
+  // background-color: var(--bg);
   cursor: pointer;
   border-radius: 10px;
 }
 
 div.background .content form input[type="submit"]:hover {
-  color: var(--hColor);
+  color: white;
   background-color: var(--bhover);
 }
 

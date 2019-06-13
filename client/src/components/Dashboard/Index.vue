@@ -72,6 +72,8 @@ export default {
   methods: {
     async logout() {
       await this.$store.dispatch("isUserLogIn", false);
+      await this.$store.dispatch("setHouseProvider", false);
+      await this.$store.dispatch("setUser", null);
       await this.$cookies.remove("user");
       this.$router.push({ name: "home" });
     },

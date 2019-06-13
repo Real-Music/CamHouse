@@ -2,6 +2,11 @@ module.exports = (sequelize, Datatypes) => {
   const singleRoom = sequelize.define(
     "singleRoom",
     {
+      title: {
+        type: Datatypes.STRING,
+        allowNull: true,
+        defaultValue: "Single Room"
+      },
       slug: { type: Datatypes.STRING, allowNull: false },
       bathroom_no: {
         type: Datatypes.STRING,

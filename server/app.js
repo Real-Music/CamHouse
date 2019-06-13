@@ -8,6 +8,7 @@ const roomsRoutes = require("./api/routes/singleRoom");
 const apartmentsRoutes = require("./api/routes/apartment");
 const studioRoutes = require("./api/routes/studio");
 const ordersRoutes = require("./api/routes/order");
+const searchRoutes = require("./api/routes/search");
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use("/rooms", roomsRoutes);
 app.use("/apartments", apartmentsRoutes);
 app.use("/studio", studioRoutes);
 app.use("/orders", ordersRoutes);
+app.use("/search", searchRoutes);
 
 // 404 Errors
 app.use(function(req, res, next) {

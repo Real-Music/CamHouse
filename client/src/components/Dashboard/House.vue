@@ -783,7 +783,7 @@ export default {
         const slug = this.$cookies.get("user").slug;
 
         const response = await HouseApi.createHouse(slug, formData);
-        this.$store.dispatch("setHouse", response.data.house);
+        // this.$store.dispatch("setHouse", response.data.house);
 
         this.$router.push({
           name: "house",
@@ -802,7 +802,7 @@ export default {
         const slug = this.$cookies.get("user").slug;
 
         const response = await ApartmentApi.create(slug, formData);
-        this.$store.dispatch("setApartment", response.data.apartment);
+        // this.$store.dispatch("setApartment", response.data.apartment);
 
         this.$router.push({
           name: "apartment",

@@ -80,11 +80,17 @@ export default {
           await this.$cookies.set("user", user);
           await this.$store.dispatch("isUserLogIn", true);
           await this.$store.dispatch("setUser", response.data.user);
+
+          if (response.data.user.isHouseProvider) {
+            this.$store.dispatch("setHouseProvider", true);
+            this.$router.push({
+              name: "dashboard",
+              params: { userId: this.$cookies.get("user").slug }
+            });
+          }
+
+          this.$router.push({ name: "search" });
           //  console.log(this.$cookies.get("user").token);
-          this.$router.push({
-            name: "dashboard",
-            params: { userId: this.$cookies.get("user").slug }
-          });
         } else {
           response = await UserApi.login({
             email: this.email,
@@ -107,12 +113,18 @@ export default {
 
           this.$store.dispatch("isUserLogIn", true);
           this.$store.dispatch("setUser", response.data.user);
+          console.log(response);
+          if (response.data.user.isHouseProvider) {
+            this.$store.dispatch("setHouseProvider", true);
+            this.$router.push({
+              name: "dashboard",
+              params: { userId: this.$cookies.get("user").slug }
+            });
+          }
+
+          this.$router.push({ name: "search" });
 
           // console.log(this.$cookies.get("user"));
-          this.$router.push({
-            name: "dashboard",
-            params: { userId: this.$cookies.get("user").slug }
-          });
         }
       } catch (error) {
         console.log(error.response.data.message);

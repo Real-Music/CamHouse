@@ -16,5 +16,8 @@ export default {
   },
   deleteHouse(slug) {
     return Api().delete(`/houses/${slug}`);
+  },
+  getHouses() {
+    return Api().get("/houses");
   }
 };

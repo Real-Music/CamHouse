@@ -16,5 +16,8 @@ export default {
   },
   deleteRoom(slug) {
     return Api().delete(`/rooms/${slug}`);
+  },
+  getRooms() {
+    return Api().get("/rooms");
   }
 };

@@ -46,7 +46,7 @@ module.exports = (sequelize, Datatypes) => {
       },
       imageUrl: {
         type: Datatypes.STRING,
-        allowNull: false,
+        allowNull: true,
         defaultValue: "path goes here"
       },
       isHouseProvider: {

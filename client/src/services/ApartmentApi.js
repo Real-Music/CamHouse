@@ -12,5 +12,8 @@ export default {
   },
   deleteApartment(slug) {
     return Api().delete(`/apartments/${slug}`);
+  },
+  getApartments() {
+    return Api().get("/apartments");
   }
 };
