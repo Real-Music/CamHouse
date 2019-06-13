@@ -154,11 +154,25 @@ export default {
           isHouseProvider: this.$store.state.isHouseProvider
         });
 
+        const user = {
+          slug: response.data.user.slug,
+          token: response.data.token
+        };
+
+        let key = ["id", "password", "token", "slug"];
+        delete response.data.user[key[0]];
+        delete response.data.user[key[1]];
+        delete response.data[key[2]];
+        delete response.data.user[key[3]];
+
         console.log(response.data);
-        await this.$store.dispatch("setToken", response.data.token);
-        await this.$store.dispatch("setUser", response.data.user);
+        await this.$cookies.set("user", user);
         await this.$store.dispatch("isUserLogIn", true);
-        this.$router.push({ name: "dashboard" });
+        await this.$store.dispatch("setUser", response.data.user);
+        this.$router.push({
+          name: "dashboard",
+          params: { userId: this.$cookies.get("user").slug }
+        });
       } catch (error) {
         console.log(error.response.data.message);
         this.error = error.response.data.message;

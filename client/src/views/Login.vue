@@ -67,7 +67,6 @@ export default {
             slug: response.data.user.slug,
             token: response.data.token
           };
-          console.log(user);
 
           let key = ["id", "password", "token", "slug"];
           delete response.data.user[key[0]];

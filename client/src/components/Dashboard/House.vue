@@ -207,7 +207,7 @@
                   </div>
                 </div>
               </div>
-              <input type="submit" value="Create">
+              <input type="submit" value="Create House">
             </form>
           </div>
         </div>
@@ -814,6 +814,7 @@ export default {
     },
     async createStudio() {
       try {
+        alert("You are about to Create a New Studio?");
         const form = document.querySelector(".createStudio");
         const formData = new FormData(form);
         const slug = this.$cookies.get("user").slug;

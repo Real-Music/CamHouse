@@ -1,412 +1,427 @@
 <template>
   <div id="Apartment__Preview">
     <dashboard title="Apartment">
-      <div class="black__box" v-show="blackBox">
-        <div class="content">
-          <div class="tabcontent">
-            <form @submit.prevent class="updateApartment">
-              <div class="form__wrapper">
-                <div class="apartment__wrapper">
-                  <div class="apartment__des">
-                    <div class="title">
-                      <p>Apartment Description</p>
-                    </div>
-                    <div class="input__form">
-                      <div class="first_row">
-                        <div class="form__container">
-                          <label for="palors_no">Palors</label>
-                          <input
-                            type="text"
-                            :value="apartments[active].palors_no"
-                            name="palors_no"
-                            id="palors_no"
-                          >
-                        </div>
-                        <div class="form__container">
-                          <label for="kitchen_no">Kitchens</label>
-                          <input
-                            type="text"
-                            :value="apartments[active].kitchen_no"
-                            name="kitchen_no"
-                            id="kitchen_no"
-                          >
-                        </div>
+      <div v-if="isEmpty">
+        <h1 style="margin-bottom: 20px; color:#888888;">You haven't created any Apartment yet...!</h1>
+        <router-link to @click.native="routing('/new_house')">Create New Apartment</router-link>
+      </div>
+      <div v-else>
+        <div class="black__box" v-show="blackBox">
+          <div class="content">
+            <div class="tabcontent">
+              <form @submit.prevent class="updateApartment">
+                <div class="form__wrapper">
+                  <div class="apartment__wrapper">
+                    <div class="apartment__des">
+                      <div class="title">
+                        <p>Apartment Description</p>
                       </div>
-                      <div class="second_row">
-                        <div class="form__container">
-                          <label for="rooms_no">Rooms</label>
-                          <input
-                            type="text"
-                            :value="apartments[active].rooms_no"
-                            name="rooms_no"
-                            id="rooms_no"
-                          >
-                        </div>
-                        <div class="form__container">
-                          <label for="bathroom_no">Bathrooms</label>
-                          <input
-                            type="text"
-                            :value="apartments[active].bathroom_no"
-                            name="bathroom_no"
-                            id="bathroom_no"
-                          >
-                        </div>
-                        <div class="form__container">
-                          <label for="dimension">Dimension</label>
-                          <div>
+                      <div class="input__form">
+                        <div class="first_row">
+                          <div class="form__container">
+                            <label for="palors_no">Palors</label>
                             <input
                               type="text"
-                              :value="apartments[active].dimension"
-                              name="dimension"
-                              id="dimension"
+                              :value="apartments[active].palors_no"
+                              name="palors_no"
+                              id="palors_no"
                             >
-                            <span>Sft</span>
+                          </div>
+                          <div class="form__container">
+                            <label for="kitchen_no">Kitchens</label>
+                            <input
+                              type="text"
+                              :value="apartments[active].kitchen_no"
+                              name="kitchen_no"
+                              id="kitchen_no"
+                            >
+                          </div>
+                        </div>
+                        <div class="second_row">
+                          <div class="form__container">
+                            <label for="rooms_no">Rooms</label>
+                            <input
+                              type="text"
+                              :value="apartments[active].rooms_no"
+                              name="rooms_no"
+                              id="rooms_no"
+                            >
+                          </div>
+                          <div class="form__container">
+                            <label for="bathroom_no">Bathrooms</label>
+                            <input
+                              type="text"
+                              :value="apartments[active].bathroom_no"
+                              name="bathroom_no"
+                              id="bathroom_no"
+                            >
+                          </div>
+                          <div class="form__container">
+                            <label for="dimension">Dimension</label>
+                            <div>
+                              <input
+                                type="text"
+                                :value="apartments[active].dimension"
+                                name="dimension"
+                                id="dimension"
+                              >
+                              <span>Sft</span>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="price">
-                    <div class="title">
-                      <p>Price & Location</p>
-                    </div>
-                    <div class="input__form">
-                      <div class="first_row">
-                        <div class="form__container">
-                          <label for="price">Price</label>
-                          <div>
-                            <input
-                              type="text"
-                              :value="apartments[active].price"
-                              name="price"
-                              id="price"
-                            >
-                            <span>CFA</span>
+                    <div class="price">
+                      <div class="title">
+                        <p>Price & Location</p>
+                      </div>
+                      <div class="input__form">
+                        <div class="first_row">
+                          <div class="form__container">
+                            <label for="price">Price</label>
+                            <div>
+                              <input
+                                type="text"
+                                :value="apartments[active].price"
+                                name="price"
+                                id="price"
+                              >
+                              <span>CFA</span>
+                            </div>
+                          </div>
+                          <div class="form__container">
+                            <label for="duration">Duration</label>
+                            <select name="duration" id="duration">
+                              <option
+                                :value="apartments[active].duration"
+                              >{{apartments[active].duration}}</option>
+                              <option value="Per Day">per day</option>
+                              <option value="Per Night">per night</option>
+                              <option value="Per Week">per week</option>
+                              <option value="Per Month">per month</option>
+                              <option value="Per Year">per year</option>
+                            </select>
+                          </div>
+                          <div class="form__container">
+                            <label for="location">Location</label>
+                            <select name="location" id="location">
+                              <option
+                                :value="apartments[active].location"
+                              >{{apartments[active].location}}</option>
+                              <option value="Bokwoango">Bokwoango</option>
+                              <option value="Molyko">Molyko</option>
+                              <option value="Milingo">Milingo</option>
+                              <option value="Mayor's Street">Mayor's Street</option>
+                              <option value="Chief Street">Chief Street</option>
+                              <option value="UB South">UB South</option>
+                              <option value="UB Junction">UB Junction</option>
+                              <option value="Mile 17">Mile 17</option>
+                            </select>
                           </div>
                         </div>
-                        <div class="form__container">
-                          <label for="duration">Duration</label>
-                          <select name="duration" id="duration">
-                            <option
-                              :value="apartments[active].duration"
-                            >{{apartments[active].duration}}</option>
-                            <option value="Per Day">per day</option>
-                            <option value="Per Night">per night</option>
-                            <option value="Per Week">per week</option>
-                            <option value="Per Month">per month</option>
-                            <option value="Per Year">per year</option>
-                          </select>
-                        </div>
-                        <div class="form__container">
-                          <label for="location">Location</label>
-                          <select name="location" id="location">
-                            <option
-                              :value="apartments[active].location"
-                            >{{apartments[active].location}}</option>
-                            <option value="Bokwoango">Bokwoango</option>
-                            <option value="Molyko">Molyko</option>
-                            <option value="Milingo">Milingo</option>
-                            <option value="Mayor's Street">Mayor's Street</option>
-                            <option value="Chief Street">Chief Street</option>
-                            <option value="UB South">UB South</option>
-                            <option value="UB Junction">UB Junction</option>
-                            <option value="Mile 17">Mile 17</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="second_row">
-                        <div class="form__container">
-                          <label for="description">Description</label>
-                          <textarea
-                            name="description"
-                            id="description"
-                            cols="10"
-                            rows="5"
-                            :value="apartments[active].description"
-                          ></textarea>
+                        <div class="second_row">
+                          <div class="form__container">
+                            <label for="description">Description</label>
+                            <textarea
+                              name="description"
+                              id="description"
+                              cols="10"
+                              rows="5"
+                              :value="apartments[active].description"
+                            ></textarea>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="help__text">
-                    <h1>Here, You can Edit / Delete Apartment</h1>
-                    <br>
-                    <br>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt autem error
+                    <div class="help__text">
+                      <h1>Here, You can Edit / Delete Apartment</h1>
                       <br>
-                      <br>quos perferendis distinctio ullam rerum, beatae, minima sunt voluptatem rem quia, assumenda natus amet explicabo. Saepe iusto velit laboriosam.
-                    </p>
+                      <br>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt autem error
+                        <br>
+                        <br>quos perferendis distinctio ullam rerum, beatae, minima sunt voluptatem rem quia, assumenda natus amet explicabo. Saepe iusto velit laboriosam.
+                      </p>
+                    </div>
                   </div>
-                </div>
 
-                <div class="images__upload">
-                  <div class="image">
-                    <div class="title">
-                      <p>Image Upload</p>
-                    </div>
-                    <div class="input__form">
-                      <div class="first_row">
-                        <div class="form__container">
-                          <div class="preview">
-                            <img :src="previewUrl" v-if="previewUrl">
-                            <img :src="'http://localhost:8000'+apartments[active].imageUrl1" v-else>
+                  <div class="images__upload">
+                    <div class="image">
+                      <div class="title">
+                        <p>Image Upload</p>
+                      </div>
+                      <div class="input__form">
+                        <div class="first_row">
+                          <div class="form__container">
+                            <div class="preview">
+                              <img :src="previewUrl" v-if="previewUrl">
+                              <img
+                                :src="'http://localhost:8000'+apartments[active].imageUrl1"
+                                v-else
+                              >
+                            </div>
+                            <label for="description">Upload</label>
+                            <input
+                              type="file"
+                              name="imageUrl"
+                              @change="onFileChange"
+                              accept="image/*"
+                              id="imageUrl"
+                            >
                           </div>
-                          <label for="description">Upload</label>
-                          <input
-                            type="file"
-                            name="imageUrl"
-                            @change="onFileChange"
-                            accept="image/*"
-                            id="imageUrl"
-                          >
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="image">
-                    <div class="title">
-                      <p>Image Upload</p>
-                    </div>
-                    <div class="input__form">
-                      <div class="first_row">
-                        <div class="form__container">
-                          <div class="preview">
-                            <img :src="previewUrl1" v-if="previewUrl1">
-                            <img :src="'http://localhost:8000'+apartments[active].imageUrl2" v-else>
+                    <div class="image">
+                      <div class="title">
+                        <p>Image Upload</p>
+                      </div>
+                      <div class="input__form">
+                        <div class="first_row">
+                          <div class="form__container">
+                            <div class="preview">
+                              <img :src="previewUrl1" v-if="previewUrl1">
+                              <img
+                                :src="'http://localhost:8000'+apartments[active].imageUrl2"
+                                v-else
+                              >
+                            </div>
+                            <label for="description">Upload</label>
+                            <input
+                              type="file"
+                              name="imageUrl"
+                              @change="onFileChange1"
+                              accept="image/*"
+                              id="imageUrl"
+                            >
                           </div>
-                          <label for="description">Upload</label>
-                          <input
-                            type="file"
-                            name="imageUrl"
-                            @change="onFileChange1"
-                            accept="image/*"
-                            id="imageUrl"
-                          >
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="image">
-                    <div class="title">
-                      <p>Image Upload</p>
-                    </div>
-                    <div class="input__form">
-                      <div class="first_row">
-                        <div class="form__container">
-                          <div class="preview">
-                            <img :src="previewUrl2" v-if="previewUrl2">
-                            <img :src="'http://localhost:8000'+apartments[active].imageUrl3" v-else>
+                    <div class="image">
+                      <div class="title">
+                        <p>Image Upload</p>
+                      </div>
+                      <div class="input__form">
+                        <div class="first_row">
+                          <div class="form__container">
+                            <div class="preview">
+                              <img :src="previewUrl2" v-if="previewUrl2">
+                              <img
+                                :src="'http://localhost:8000'+apartments[active].imageUrl3"
+                                v-else
+                              >
+                            </div>
+                            <label for="description">Upload</label>
+                            <input
+                              type="file"
+                              name="imageUrl"
+                              @change="onFileChange2"
+                              accept="image/*"
+                              id="imageUrl"
+                            >
                           </div>
-                          <label for="description">Upload</label>
-                          <input
-                            type="file"
-                            name="imageUrl"
-                            @change="onFileChange2"
-                            accept="image/*"
-                            id="imageUrl"
-                          >
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <input type="submit" @click="update" value="Update">
-              <input type="submit" @click="deleteApartment" value="Delete">
-              <input type="submit" @click="cancel" value="Cancel">
-            </form>
+                <input type="submit" @click="update" value="Update">
+                <input type="submit" @click="deleteApartment" value="Delete">
+                <input type="submit" @click="cancel" value="Cancel">
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="apartments__container">
-        <div class="single__preview">
-          <div class="bottom">
-            <div class="wrapper">
-              <div class="slider-container">
-                <ul class="slider" :style="styleObject">
-                  <li class="green slide">
-                    <img :src="'http://localhost:8000'+apartments[active].imageUrl1">
-                  </li>
-                  <li class="blue slide">
-                    <img :src="'http://localhost:8000'+apartments[active].imageUrl2">
-                  </li>
-                  <li class="grey slide">
-                    <img :src="'http://localhost:8000'+apartments[active].imageUrl3">
-                  </li>
-                  <!-- <li class="red slide">Slide 4</li> -->
+        <div class="apartments__container">
+          <div class="single__preview">
+            <div class="bottom">
+              <div class="wrapper">
+                <div class="slider-container">
+                  <ul class="slider" :style="styleObject">
+                    <li class="green slide">
+                      <img :src="'http://localhost:8000'+apartments[active].imageUrl1">
+                    </li>
+                    <li class="blue slide">
+                      <img :src="'http://localhost:8000'+apartments[active].imageUrl2">
+                    </li>
+                    <li class="grey slide">
+                      <img :src="'http://localhost:8000'+apartments[active].imageUrl3">
+                    </li>
+                    <!-- <li class="red slide">Slide 4</li> -->
+                  </ul>
+                </div>
+                <ul class="navigator">
+                  <li @click="prevSlide" class="lightgrey">&laquo;</li>
+                  <li @click="changeSlide(1)" class="green">1</li>
+                  <li @click="changeSlide(2)" class="blue">2</li>
+                  <li @click="changeSlide(3)" class="grey">3</li>
+                  <!-- <li @click="changeSlide(4)" class="red">4</li> -->
+                  <li @click="nextSlide" class="lightgrey">&raquo;</li>
                 </ul>
               </div>
-              <ul class="navigator">
-                <li @click="prevSlide" class="lightgrey">&laquo;</li>
-                <li @click="changeSlide(1)" class="green">1</li>
-                <li @click="changeSlide(2)" class="blue">2</li>
-                <li @click="changeSlide(3)" class="grey">3</li>
-                <!-- <li @click="changeSlide(4)" class="red">4</li> -->
-                <li @click="nextSlide" class="lightgrey">&raquo;</li>
-              </ul>
-            </div>
-            <div class="description">
-              <div class="apartment_title">
-                <h1>Preview</h1>
-              </div>
-              <div class="content">
-                <div class="input__form">
-                  <div class="first_row">
-                    <div class="form__container">
-                      <label for="rooms_no">Rooms</label>
-                      <input
-                        type="text"
-                        name="rooms_no"
-                        :value="apartments[active].rooms_no"
-                        id="rooms_no"
-                        readonly
-                      >
-                    </div>
-                    <div class="form__container">
-                      <label for="palors_no">Palors</label>
-                      <input
-                        type="text"
-                        name="palors_no"
-                        :value="apartments[active].palors_no"
-                        id="palors_no"
-                        readonly
-                      >
-                    </div>
-                    <div class="form__container">
-                      <label for="kitchen_no">Kitchens</label>
-                      <input
-                        type="text"
-                        name="kitchen_no"
-                        :value="apartments[active].kitchen_no"
-                        id="kitchen_no"
-                        readonly
-                      >
-                    </div>
-                  </div>
-                  <div class="second_row">
-                    <div class="form__container">
-                      <label for="bathroom_no">Bathrooms</label>
-                      <input
-                        type="text"
-                        name="bathroom_no"
-                        :value="apartments[active].bathroom_no"
-                        id="bathroom_no"
-                        readonly
-                      >
-                    </div>
-                    <div class="form__container">
-                      <label for="rooms_no">Location</label>
-                      <input
-                        type="text"
-                        name="location"
-                        :value="apartments[active].location"
-                        id="rooms_no"
-                        readonly
-                      >
-                    </div>
-                    <div class="form__container">
-                      <label for="dimension">Dimension</label>
-                      <div>
+              <div class="description">
+                <div class="apartment_title">
+                  <h1>Preview</h1>
+                </div>
+                <div class="content">
+                  <div class="input__form">
+                    <div class="first_row">
+                      <div class="form__container">
+                        <label for="rooms_no">Rooms</label>
                         <input
                           type="text"
-                          name="dimension"
-                          :value="apartments[active].dimension"
-                          id="dimension"
+                          name="rooms_no"
+                          :value="apartments[active].rooms_no"
+                          id="rooms_no"
                           readonly
                         >
-                        <span>Sft</span>
+                      </div>
+                      <div class="form__container">
+                        <label for="palors_no">Palors</label>
+                        <input
+                          type="text"
+                          name="palors_no"
+                          :value="apartments[active].palors_no"
+                          id="palors_no"
+                          readonly
+                        >
+                      </div>
+                      <div class="form__container">
+                        <label for="kitchen_no">Kitchens</label>
+                        <input
+                          type="text"
+                          name="kitchen_no"
+                          :value="apartments[active].kitchen_no"
+                          id="kitchen_no"
+                          readonly
+                        >
                       </div>
                     </div>
-                  </div>
-                  <div class="second_row">
-                    <div class="form__container">
-                      <label for="bathroom_no">Duration</label>
-                      <input
-                        type="text"
-                        name="duration"
-                        :value="apartments[active].duration"
-                        id="bathroom_no"
-                        readonly
-                      >
-                    </div>
-                    <div class="form__container">
-                      <label for="dimension">Price</label>
-                      <div>
+                    <div class="second_row">
+                      <div class="form__container">
+                        <label for="bathroom_no">Bathrooms</label>
                         <input
                           type="text"
-                          name="dimension"
-                          id="dimension"
-                          v-bind:value="apartments[active].price"
+                          name="bathroom_no"
+                          :value="apartments[active].bathroom_no"
+                          id="bathroom_no"
                           readonly
                         >
-                        <span>FCFA</span>
+                      </div>
+                      <div class="form__container">
+                        <label for="rooms_no">Location</label>
+                        <input
+                          type="text"
+                          name="location"
+                          :value="apartments[active].location"
+                          id="rooms_no"
+                          readonly
+                        >
+                      </div>
+                      <div class="form__container">
+                        <label for="dimension">Dimension</label>
+                        <div>
+                          <input
+                            type="text"
+                            name="dimension"
+                            :value="apartments[active].dimension"
+                            id="dimension"
+                            readonly
+                          >
+                          <span>Sft</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="second_row">
+                      <div class="form__container">
+                        <label for="bathroom_no">Duration</label>
+                        <input
+                          type="text"
+                          name="duration"
+                          :value="apartments[active].duration"
+                          id="bathroom_no"
+                          readonly
+                        >
+                      </div>
+                      <div class="form__container">
+                        <label for="dimension">Price</label>
+                        <div>
+                          <input
+                            type="text"
+                            name="dimension"
+                            id="dimension"
+                            v-bind:value="apartments[active].price"
+                            readonly
+                          >
+                          <span>FCFA</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="footer">
-                <div class="intro">Description</div>
-                <!-- <textarea
+                <div class="footer">
+                  <div class="intro">Description</div>
+                  <!-- <textarea
                     name="description"
                     id="description"
                     v-model="apartments[active].description"
                     cols="30"
                     rows="10"
-                ></textarea>-->
-                <p>{{apartments[active].description}}</p>
+                  ></textarea>-->
+                  <p>{{apartments[active].description}}</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="owner">
-            <label>Owner: {{user.userName}}</label>
-            <label>Email: {{user.email}}</label>
-            <label>Tell: {{ user.tel}}</label>
-          </div>
-          <div class="previous" @click="active <= 0 ? active = 0: active-=1">
-            <p><<</p>
-          </div>
-          <div
-            class="next"
-            @click="active >= (apartments.length-1) ? active = (apartments.length-1)  : active += 1"
-          >
-            <p>>></p>
-          </div>
-        </div>
-        <div class="all__apartments">
-          <div class="showCase" title="Click to Edit">
+            <div class="owner">
+              <label>Owner: {{user.userName}}</label>
+              <label>Email: {{user.email}}</label>
+              <label>Tell: {{ user.tel}}</label>
+            </div>
+            <div class="previous" @click="active <= 0 ? active = 0: active-=1">
+              <p><<</p>
+            </div>
             <div
-              class="single__apartment"
-              @click="editApartment(apartment,index)"
-              v-for="(apartment, index) in apartments"
-              :key="index"
+              class="next"
+              @click="active >= (apartments.length-1) ? active = (apartments.length-1)  : active += 1"
             >
-              <div class="image__wrapper">
-                <div class="image-child">
-                  <img :src="'http://localhost:8000'+ apartment.imageUrl1">
-                  <div class="infor">
-                    <p>Click To Edit</p>
-                    <p>{{apartment.description}}</p>
-                  </div>
-                </div>
-                <div class="image__wrapper__title">
-                  <div class="image_price">
-                    <h1>Apartment</h1>
-                  </div>
-                  <div class="btn">
-                    <div>
-                      <p>Price: {{ apartment.price }} FCFA {{ apartment.duration }}</p>
-                      <p>Palors: {{apartment.palors_no}}</p>
+              <p>>></p>
+            </div>
+          </div>
+          <div class="all__apartments">
+            <div class="showCase" title="Click to Edit">
+              <div
+                class="single__apartment"
+                @click="editApartment(apartment,index)"
+                v-for="(apartment, index) in apartments"
+                :key="index"
+              >
+                <div class="image__wrapper">
+                  <div class="image-child">
+                    <img :src="'http://localhost:8000'+ apartment.imageUrl1">
+                    <div class="infor">
+                      <p>Click To Edit</p>
+                      <p>{{apartment.description}}</p>
                     </div>
-                    <div>
-                      <p>Location: {{apartment.location}}</p>
-                      <p>Dimension: {{apartment.dimension}} Sft</p>
+                  </div>
+                  <div class="image__wrapper__title">
+                    <div class="image_price">
+                      <h1>Apartment</h1>
                     </div>
-                    <div>
-                      <p>Rooms: {{apartment.rooms_no}}</p>
-                      <p>Kitchen: {{apartment.kitchen_no}}</p>
-                      <p>Bathrooms: {{apartment.bathroom_no}}</p>
+                    <div class="btn">
+                      <div>
+                        <p>Price: {{ apartment.price }} FCFA {{ apartment.duration }}</p>
+                        <p>Palors: {{apartment.palors_no}}</p>
+                      </div>
+                      <div>
+                        <p>Location: {{apartment.location}}</p>
+                        <p>Dimension: {{apartment.dimension}} Sft</p>
+                      </div>
+                      <div>
+                        <p>Rooms: {{apartment.rooms_no}}</p>
+                        <p>Kitchen: {{apartment.kitchen_no}}</p>
+                        <p>Bathrooms: {{apartment.bathroom_no}}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -439,7 +454,8 @@ export default {
       active: 0,
       apartments: [],
       activeSlide: 1,
-      blackBox: false
+      blackBox: false,
+      isEmpty: true
     };
   },
   computed: {
@@ -480,6 +496,11 @@ export default {
     },
     changeSlide: function(num) {
       this.activeSlide = num;
+    },
+    routing(path) {
+      this.$router.push({
+        path: "/home/" + this.$cookies.get("user").slug + path
+      });
     },
     nextSlide: function() {
       if (this.activeSlide < 3) this.activeSlide++;
@@ -537,8 +558,15 @@ export default {
     const response = await ApartmentApi.getAllApartment(
       this.$cookies.get("user").slug
     );
-    this.apartments = response.data.apartments;
     console.log(response);
+    if (response.data.apartments.length < 0) {
+      this.isEmpty = true;
+    } else {
+      {
+        this.isEmpty = false;
+        this.apartments = response.data.apartments;
+      }
+    }
   }
 };
 </script>
