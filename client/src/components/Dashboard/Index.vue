@@ -1,9 +1,9 @@
 <template>
-  <div id="base_dashbord">
+  <router-link id="base_dashbord">
     <main>
       <aside>
         <nav class="menu">
-          <input type="search" name id="menuSearch" placeholder="search menu">
+          <input type="search" name id="menuSearch" placeholder="search menu" />
           <ul>
             <li>
               <router-link to @click.native="routing('')">Dashboard</router-link>
@@ -47,7 +47,7 @@
         </div>
       </div>
     </main>
-  </div>
+  </router-link>
 </template>
 
 <script>

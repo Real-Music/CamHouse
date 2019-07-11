@@ -399,7 +399,7 @@
                   <div class="image-child">
                     <img :src="'http://localhost:8000'+ house.imageUrl1">
                     <div class="infor">
-                      <p>Click To Edit</p>
+                      <!-- <p>Click To Edit</p> -->
                       <p>{{house.description}}</p>
                     </div>
                   </div>

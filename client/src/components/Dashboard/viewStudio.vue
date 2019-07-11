@@ -349,7 +349,7 @@
                   <div class="image-child">
                     <img :src="'http://localhost:8000'+ studio.imageUrl1">
                     <div class="infor">
-                      <p>Click To Edit</p>
+                      <!-- <p>Click To Edit</p> -->
                       <p>{{studio.description}}</p>
                     </div>
                   </div>

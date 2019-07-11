@@ -54,17 +54,17 @@ export default new Router({
     {
       path: "/search",
       name: "search",
-      component: Search,
-      beforeEnter(to, from, next) {
-        if (store.state.isUserLogIn) {
-          store.dispatch("showDashboard", true);
-          store.dispatch("showLogin", false);
-          next();
-        } else {
-          store.dispatch("showDashboard", false);
-          next();
-        }
-      }
+      component: Search
+      // beforeEnter(to, from, next) {
+      //   // if (store.state.isUserLogIn) {
+      //   //   store.dispatch("showDashboard", true);
+      //   //   store.dispatch("showLogin", false);
+      //   //   next();
+      //   // } else {
+      //   //   store.dispatch("showDashboard", false);
+      //   //   next();
+      //   // }
+      // }
     },
     {
       path: "/about",

@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/", studioController.getStudio);
 
-router.post("/:userId", tokenAuthentication, studioController.createStudio);
+router.post("/:userId", studioController.createStudio);
 
 router.get("/:studioId", studioController.singleStudio);
 

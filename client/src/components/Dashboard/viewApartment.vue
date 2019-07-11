@@ -400,7 +400,7 @@
                   <div class="image-child">
                     <img :src="'http://localhost:8000'+ apartment.imageUrl1">
                     <div class="infor">
-                      <p>Click To Edit</p>
+                      <!-- <p>Click To Edit</p> -->
                       <p>{{apartment.description}}</p>
                     </div>
                   </div>

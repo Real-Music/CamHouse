@@ -5,11 +5,7 @@ const router = express.Router();
 
 router.get("/", apartmentController.getApartment);
 
-router.post(
-  "/:userId",
-  tokenAuthentication,
-  apartmentController.createApartment
-);
+router.post("/:userId", apartmentController.createApartment);
 
 router.get("/:apartmentId", apartmentController.singleApartment);
 
