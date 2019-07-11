@@ -1,5 +1,5 @@
 <template>
-  <router-link id="base_dashbord">
+  <div id="base_dashbord">
     <main>
       <aside>
         <nav class="menu">
@@ -47,7 +47,7 @@
         </div>
       </div>
     </main>
-  </router-link>
+  </div>
 </template>
 
 <script>
